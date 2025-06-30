@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kino_top/screens/Login_screen.dart';
 
 class OnboardingScreen extends StatefulWidget {
@@ -117,7 +118,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
               children: [
                 SafeArea(
                   child: Padding(
-                    padding: EdgeInsets.symmetric(vertical: 20),
+                    padding: EdgeInsets.symmetric(vertical: 20.h),
                     child: pageOne(),
                   ),
                 ),
@@ -142,7 +143,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   style: ElevatedButton.styleFrom(
                     elevation: 0,
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
+                      borderRadius: BorderRadius.circular(10.r),
                     ),
                     backgroundColor: Color(0xFfEB2F3D),
                     foregroundColor: Colors.white,
@@ -171,10 +172,10 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   spacing: 5,
                   children: List.generate(2, (index) {
                     return Container(
-                      width: 50,
-                      height: 5,
+                      width: 50.w,
+                      height: 5.h,
                       decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
+                        borderRadius: BorderRadius.circular(10.r),
                         color:
                             selctedpage == index
                                 ? Colors.red
@@ -195,7 +196,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     return Column(
       spacing: 10,
       children: [
-        SizedBox(height: 50),
+        SizedBox(height: 50.h),
 
         buildImageGridRow(images1, _scrollController1),
         buildImageGridRow(images2, _scrollController2),
@@ -203,14 +204,14 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
         Spacer(),
 
         SizedBox(
-          width: 280,
+          width: 280.w,
           child: Text(
             textAlign: TextAlign.center,
             "Tell us about your favorite movie genres",
-            style: TextStyle(color: Colors.white, fontSize: 20),
+            style: TextStyle(color: Colors.white, fontSize: 20.sp),
           ),
         ),
-        SizedBox(height: 30),
+        SizedBox(height: 30.h),
       ],
     );
   }
@@ -260,7 +261,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                         : Color.fromARGB(255, 39, 38, 38),
 
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10),
+                  borderRadius: BorderRadius.circular(10.r),
                 ),
                 foregroundColor: Colors.white,
               ),
@@ -286,7 +287,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                         ? Color(0xFFEB2F3D)
                         : Color.fromARGB(255, 39, 38, 38),
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10),
+                  borderRadius: BorderRadius.circular(10.r),
                 ),
                 foregroundColor: Colors.white,
               ),
@@ -302,15 +303,15 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
         Spacer(),
 
         SizedBox(
-          width: 280,
+          width: 280.w,
           child: Text(
             textAlign: TextAlign.center,
             "Select thr genres you like to watch",
-            style: TextStyle(color: Colors.white, fontSize: 20),
+            style: TextStyle(color: Colors.white, fontSize: 20.sp),
           ),
         ),
 
-        SizedBox(height: 30),
+        SizedBox(height: 30.h),
       ],
     );
   }
@@ -334,8 +335,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             child: Image.asset(
               images[index],
               fit: BoxFit.cover,
-              width: 120,
-              height: 180,
+              width: 120.w,
+              height: 180.h,
             ),
           );
         },

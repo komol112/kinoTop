@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:kino_top/screens/onoarding_screen.dart';
 
@@ -28,9 +29,8 @@ class _InitialScreenState extends State<InitialScreen> {
       backgroundColor: Color(0xFfEB2F3D),
       body: Center(
         child: Padding(
-          padding: const EdgeInsets.all(19.0),
+          padding: const EdgeInsets.all(20),
           child: Column(
-            
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Spacer(),
@@ -40,7 +40,7 @@ class _InitialScreenState extends State<InitialScreen> {
                 style: TextStyle(
                   color: Colors.white,
                   fontWeight: FontWeight.w600,
-                  fontSize: 20,
+                  fontSize: 20.sp,
                 ),
               ),
 
@@ -49,7 +49,7 @@ class _InitialScreenState extends State<InitialScreen> {
                 "Version 1.0.1",
                 style: TextStyle(
                   color: Colors.white,
-                  fontSize: 10,
+                  fontSize: 10.sp,
                   fontWeight: FontWeight.w300,
                 ),
               ),
