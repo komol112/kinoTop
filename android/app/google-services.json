@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "640527997537",
+    "project_id": "kinotop-39ab2",
+    "storage_bucket": "kinotop-39ab2.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:640527997537:android:a3052a2f048dae5b2fe820",
+        "android_client_info": {
+          "package_name": "com.example.kino_top"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA0qRigsJqwbNn3L0I3B3saSTCZHRBO8eQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
