@@ -1,8 +1,9 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:kino_top/screens/home_secreen.dart';
+import 'package:kino_top/screens/navigation_screen.dart';
 import 'package:kino_top/screens/sign_up_screen.dart';
 import 'package:kino_top/services/login_and_signIn_service.dart';
 
@@ -33,7 +34,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color(0xFf121011),
-      body: Padding(
+      body: SingleChildScrollView(
         padding: const EdgeInsets.all(19.0),
         child: SafeArea(
           child: Column(
@@ -43,7 +44,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
               Text(
                 "Sign In",
                 style: TextStyle(
-                  fontSize: 25,
+                  fontSize: 25.sp,
                   fontWeight: FontWeight.w600,
                   color: Colors.white,
                 ),
@@ -58,12 +59,12 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
 
                   enabled: true,
                   enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(20),
+                    borderRadius: BorderRadius.circular(20.r),
                     borderSide: BorderSide(color: Colors.grey),
                   ),
 
                   focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(20),
+                    borderRadius: BorderRadius.circular(20.r),
                     borderSide: BorderSide(color: Colors.grey),
                   ),
                 ),
@@ -71,7 +72,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
               ),
 
               TextField(
-                                style: TextStyle(color: Colors.grey),
+                style: TextStyle(color: Colors.grey),
 
                 controller: passwordController,
                 decoration: InputDecoration(
@@ -80,12 +81,12 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                   labelText: "Password",
                   enabled: true,
                   enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(20),
+                    borderRadius: BorderRadius.circular(20.r),
                     borderSide: BorderSide(color: Colors.grey),
                   ),
 
                   focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(20),
+                    borderRadius: BorderRadius.circular(20.r),
                     borderSide: BorderSide(color: Colors.grey),
                   ),
                 ),
@@ -124,7 +125,9 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
 
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (_) => const HomeSecreen()),
+                      MaterialPageRoute(
+                        builder: (_) => const NavigationScreen(),
+                      ),
                     );
 
                     emailController.clear();
@@ -143,7 +146,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                   backgroundColor: const Color(0xFFEB2F3D),
                   minimumSize: Size(double.infinity, 55),
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
+                    borderRadius: BorderRadius.circular(10.r),
                   ),
                   foregroundColor: Colors.white,
                 ),
@@ -209,13 +212,13 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                 ],
               ),
 
-              SizedBox(height: 1),
+              SizedBox(height: 1.h),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
                     "Don't have an account?",
-                    style: TextStyle(fontSize: 15, color: Colors.grey),
+                    style: TextStyle(fontSize: 15.sp, color: Colors.grey),
                   ),
                   TextButton(
                     onPressed: () async {

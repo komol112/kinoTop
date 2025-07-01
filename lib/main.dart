@@ -1,7 +1,10 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kino_top/firebase_options.dart';
 import 'package:kino_top/screens/initial_screen.dart';
+import 'package:kino_top/screens/navigation_screen.dart';
 import 'package:kino_top/view_model/movie_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -18,10 +21,25 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
       create: (context) => MovieProvider(),
-      child: MaterialApp(
-        theme: ThemeData(fontFamily: "Roboto"),
-        debugShowCheckedModeBanner: false,
-        home: InitialScreen(),
+      child: ScreenUtilInit(
+        designSize: Size(600, 958),
+        splitScreenMode: true,
+        minTextAdapt: true,
+        builder:
+            (context, child) => MaterialApp(
+              theme: ThemeData(fontFamily: "Roboto"),
+              debugShowCheckedModeBanner: false,
+              home: StreamBuilder(
+                stream: FirebaseAuth.instance.authStateChanges(),
+                builder: (context, snapshot) {
+                  if (snapshot.data == null) {
+                    return InitialScreen();
+                  } else {
+                    return NavigationScreen();
+                  }
+                },
+              ),
+            ),
       ),
     );
   }
