@@ -107,30 +107,42 @@ class NavigationScreen extends StatefulWidget {
 class _NavigationScreenState extends State<NavigationScreen> {
   int selectedIndex = 0;
 
-  final List<Widget> screens = const [
-    // Center(
-    //   child: Text(
-    //     "🎬 Movies",
-    //     style: TextStyle(color: Colors.white, fontSize: 32),
-    //   ),
-    // ),
+  List<Widget> get screens => [
     HomeScreen(),
     Center(
       child: Text(
         "📺 Shorts",
-        style: TextStyle(color: Colors.white, fontSize: 32),
+        style: TextStyle(
+          color:
+              Theme.of(context).brightness == Brightness.dark
+                  ? Colors.white
+                  : Colors.grey.shade900,
+          fontSize: 32,
+        ),
       ),
     ),
     Center(
       child: Text(
         "🎫 My Card",
-        style: TextStyle(color: Colors.white, fontSize: 32),
+        style: TextStyle(
+          color:
+              Theme.of(context).brightness == Brightness.dark
+                  ? Colors.white
+                  : Colors.grey.shade900,
+          fontSize: 32,
+        ),
       ),
     ),
     Center(
       child: Text(
         "⚙️ Settings",
-        style: TextStyle(color: Colors.white, fontSize: 32),
+        style: TextStyle(
+          color:
+              Theme.of(context).brightness == Brightness.dark
+                  ? Colors.white
+                  : Colors.grey.shade900,
+          fontSize: 32,
+        ),
       ),
     ),
   ];
@@ -153,7 +165,10 @@ class _NavigationScreenState extends State<NavigationScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFF121011),
+      backgroundColor:
+          Theme.of(context).brightness == Brightness.dark
+              ? Colors.grey.shade900
+              : Colors.white,
 
       body: IndexedStack(index: selectedIndex, children: screens),
       floatingActionButton: Padding(
@@ -162,6 +177,7 @@ class _NavigationScreenState extends State<NavigationScreen> {
           padding: const EdgeInsets.symmetric(horizontal: 13, vertical: 13),
           decoration: BoxDecoration(
             color: Colors.blueGrey,
+         
             borderRadius: BorderRadius.circular(100), // ✅ 100% radius
           ),
           child: Row(
@@ -181,22 +197,48 @@ class _NavigationScreenState extends State<NavigationScreen> {
                           )
                           : const EdgeInsets.all(10),
                   decoration: BoxDecoration(
-                    color: isSelected ? Colors.red : Colors.grey[850],
+                    color:
+                        isSelected
+                            ? Colors.red
+                            : Theme.of(context).brightness == Brightness.dark
+                            ? Colors.grey.shade200
+                            : Colors.grey.shade900,
                     borderRadius: BorderRadius.circular(100),
                   ),
                   child:
                       isSelected
                           ? Row(
                             children: [
-                              Icon(icons[index], color: Colors.white, size: 30),
+                              Icon(
+                                icons[index],
+                                color:
+                                    Theme.of(context).brightness ==
+                                            Brightness.dark
+                                        ? Colors.grey.shade900
+                                        : Colors.grey.shade200,
+                                size: 30,
+                              ),
                               const SizedBox(width: 8),
                               Text(
                                 labels[index],
-                                style: const TextStyle(color: Colors.white),
+                                style: TextStyle(
+                                  color:
+                                      Theme.of(context).brightness ==
+                                              Brightness.dark
+                                          ? Colors.grey.shade900
+                                          : Colors.grey.shade200,
+                                ),
                               ),
                             ],
                           )
-                          : Icon(icons[index], color: Colors.white, size: 24),
+                          : Icon(
+                            icons[index],
+                            color:
+                                Theme.of(context).brightness == Brightness.dark
+                                    ? Colors.grey.shade900
+                                    : Colors.grey.shade200,
+                            size: 24,
+                          ),
                 ),
               );
             }),
