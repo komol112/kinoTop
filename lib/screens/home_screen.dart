@@ -1,5 +1,4 @@
-import 'dart:developer';
-
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kino_top/screens/detail_screen.dart';
@@ -16,28 +15,27 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  int page = 1;
-
   @override
   void initState() {
-    context.read<MovieProvider>().getMovie(page: page.toString());
-
     super.initState();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final movieProvider = context.read<MovieProvider>();
+      movieProvider.getMovie(page: 1);
+      movieProvider.getMovie(page: 2);
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     return Consumer<MovieProvider>(
       builder: (context, movieProvider, child) {
-        final movie = movieProvider.movieModel;
-        if (movie?.results == null) {
+        final page1 = movieProvider.pagedMovies[1] ?? [];
+        final page2 = movieProvider.pagedMovies[2] ?? [];
+
+        if (page1 == null || page2 == null) {
           return Center(child: CircularProgressIndicator());
         }
-
-        log(movie?.results?[1].backdropPath?.toString() ?? "");
-        log(movie?.results?[1].id.toString() ?? "0");
-
-        log(movie?.results?.length.toString() ?? "lengz yoq");
 
         return Scaffold(
           resizeToAvoidBottomInset: true,
@@ -75,104 +73,88 @@ class _HomeScreenState extends State<HomeScreen> {
             child: ListView(
               children: [
                 SizedBox(
-                  height: 320,
-                  child: PageView(
-                    physics: AlwaysScrollableScrollPhysics(),
-                    children: List.generate(movie?.results?.length ?? 30, (
-                      index,
-                    ) {
-                      return Column(
-                        spacing: 8,
+                  height: 300,
+                  child: CarouselSlider.builder(
+                    itemCount: page1.length,
+                    itemBuilder: (context, index, realIdx) {
+                      final movie = page1[index];
+                      return Stack(
+                        clipBehavior: Clip.none,
                         children: [
-                          Stack(
-                            clipBehavior: Clip.none,
-                            children: [
-                              ClipRRect(
-                                borderRadius: BorderRadius.circular(40),
-
-                                child: Image.network(
-                                  'https://image.tmdb.org/t/p/w500${movie?.results?[index].backdropPath}',
-                                  width: double.infinity,
-                                  height: 250,
-                                  fit: BoxFit.cover,
+                          ClipRRect(
+                            borderRadius: BorderRadius.circular(30),
+                            child: Image.network(
+                              'https://image.tmdb.org/t/p/w500${movie.backdropPath}',
+                              width: double.infinity,
+                              height: 230,
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                          Positioned(
+                            left: 0,
+                            right: 0,
+                            bottom: 0,
+                            child: Padding(
+                              padding: const EdgeInsets.all(15.0),
+                              child: Container(
+                                padding: EdgeInsets.symmetric(
+                                  vertical: 15,
+                                  horizontal: 25,
                                 ),
-                              ),
-
-                              Positioned(
-                                left: 0,
-                                right: 0,
-                                bottom: -50,
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Container(
-                                    padding: EdgeInsets.symmetric(
-                                      vertical: 15,
-                                      horizontal: 25,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(45),
+                                  color: Colors.grey.shade900,
+                                ),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      "Page 1",
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 11,
+                                        fontWeight: FontWeight.w300,
+                                      ),
                                     ),
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(45),
-                                      color: Colors.grey.shade900,
+                                    Text(
+                                      movie.originalTitle ?? "Trailer",
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 16.5,
+                                        fontWeight: FontWeight.w600,
+                                      ),
                                     ),
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
+                                    Text(
+                                      "release date : ${movie.releaseDate ?? "Trailer"}",
+                                      style: TextStyle(color: Colors.grey),
+                                    ),
+                                    Row(
                                       children: [
                                         Text(
-                                          "next page ${page += 1}",
-                                          style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 11,
-                                            fontWeight: FontWeight.w300,
-                                          ),
+                                          "Lang : ",
+                                          style: TextStyle(color: Colors.red),
                                         ),
                                         Text(
-                                          movie
-                                                  ?.results?[index]
-                                                  .originalTitle ??
-                                              "Threiler",
-                                          style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 16.5,
-                                            fontWeight: FontWeight.w600,
-                                          ),
-                                        ),
-
-                                        Text(
-                                          "relase date : ${movie?.results?[index].releaseDate ?? "threiler"}",
-                                          style: TextStyle(color: Colors.grey),
-                                        ),
-
-                                        Row(
-                                          mainAxisSize: MainAxisSize.max,
-                                          spacing: 5,
-                                          children: [
-                                            Text(
-                                              "Lang : ",
-                                              style: TextStyle(
-                                                color: Colors.red,
-                                              ),
-                                            ),
-                                            Text(
-                                              movie
-                                                      ?.results?[index]
-                                                      .originalLanguage ??
-                                                  "eng",
-                                              style: TextStyle(
-                                                color: Colors.white,
-                                              ),
-                                            ),
-                                          ],
+                                          movie.originalLanguage ?? "eng",
+                                          style: TextStyle(color: Colors.white),
                                         ),
                                       ],
                                     ),
-                                  ),
+                                  ],
                                 ),
                               ),
-                            ],
+                            ),
                           ),
                         ],
                       );
-                    }),
+                    },
+                    options: CarouselOptions(
+                      height: 330,
+                      autoPlay: true,
+                      autoPlayInterval: Duration(seconds: 3),
+                      enlargeCenterPage: true,
+                      viewportFraction: 0.98,
+                    ),
                   ),
                 ),
 
@@ -204,53 +186,40 @@ class _HomeScreenState extends State<HomeScreen> {
                   height: 300,
                   child: GridView.count(
                     scrollDirection: Axis.horizontal,
-                    childAspectRatio: 2,
-                    mainAxisSpacing: 15,
-                    cacheExtent: 120,
-                    physics: AlwaysScrollableScrollPhysics(),
-
+                    mainAxisSpacing: 1,
+                    childAspectRatio: 1.63,
                     crossAxisCount: 1,
-                    children: List.generate(movie?.results?.length ?? 30, (
-                      index,
-                    ) {
+                    children: List.generate(page1.length, (index) {
+                      final movie = page1[index];
                       return GestureDetector(
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder:
-                                  (context) => DetailScreen(
-                                    movie: movie!.results![index],
-                                  ),
+                        onTap:
+                            () => Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (_) => DetailScreen(movie: movie),
+                              ),
                             ),
-                          );
-                        },
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             ClipRRect(
                               borderRadius: BorderRadius.circular(25),
                               child: Hero(
-                                tag: ValueKey(
-                                  'https://image.tmdb.org/t/p/w500${movie?.results?[index].posterPath}',
-                                ),
+                                tag:
+                                    'https://image.tmdb.org/t/p/w500${movie.posterPath}',
                                 child: Image.network(
-                                  'https://image.tmdb.org/t/p/w500${movie?.results?[index].posterPath}',
-                                  width: double.infinity,
+                                  'https://image.tmdb.org/t/p/w500${movie.posterPath}',
                                   height: 250,
                                   fit: BoxFit.cover,
                                 ),
                               ),
                             ),
-
                             Text(
+                              movie.title ?? "No Title",
                               overflow: TextOverflow.ellipsis,
-                              maxLines: 1,
-                              movie?.results?[index].title ?? "threiler",
                               style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 20,
-                                fontWeight: FontWeight.w500,
                               ),
                             ),
                           ],
@@ -261,56 +230,44 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
 
                 SizedBox(
-                  height: 300,
+                  height: 370,
                   child: GridView.count(
                     scrollDirection: Axis.horizontal,
+                    mainAxisSpacing: 1,
                     childAspectRatio: 2,
-                    mainAxisSpacing: 15,
-                    cacheExtent: 120,
-                    physics: AlwaysScrollableScrollPhysics(),
-
                     crossAxisCount: 1,
-                    children: List.generate(movie?.results?.length ?? 30, (
-                      index,
-                    ) {
+
+                    children: List.generate(page2.length, (index) {
+                      final movie = page2[index];
                       return GestureDetector(
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder:
-                                  (context) => DetailScreen(
-                                    movie: movie!.results![index],
-                                  ),
+                        onTap:
+                            () => Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (_) => DetailScreen(movie: movie),
+                              ),
                             ),
-                          );
-                        },
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             ClipRRect(
                               borderRadius: BorderRadius.circular(25),
                               child: Hero(
-                                tag: ValueKey(
-                                  'https://image.tmdb.org/t/p/w500${movie?.results?[index].posterPath}',
-                                ),
+                                tag:
+                                    'https://image.tmdb.org/t/p/w500${movie.posterPath}',
                                 child: Image.network(
-                                  'https://image.tmdb.org/t/p/w500${movie?.results?[index].posterPath}',
-                                  width: double.infinity,
+                                  'https://image.tmdb.org/t/p/w500${movie.posterPath}',
                                   height: 250,
                                   fit: BoxFit.cover,
                                 ),
                               ),
                             ),
-
                             Text(
+                              movie.title ?? "No Title",
                               overflow: TextOverflow.ellipsis,
-                              maxLines: 1,
-                              movie?.results?[index].title ?? "threiler",
                               style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 20,
-                                fontWeight: FontWeight.w500,
                               ),
                             ),
                           ],

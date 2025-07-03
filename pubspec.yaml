@@ -43,6 +43,7 @@ dependencies:
   flutter_screenutil: ^5.9.3
   cached_network_image: ^3.4.1
   easy_localization: ^3.0.7+1
+  carousel_slider: ^5.1.1
 
 dev_dependencies:
   flutter_test:

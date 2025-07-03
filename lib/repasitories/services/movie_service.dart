@@ -7,7 +7,7 @@ const token =
     'eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI1NWM4NzdhN2U4ZTA1ZTM2M2M4ZGFhMDY5NDU0MGQ2MiIsIm5iZiI6MTc1MDkyOTQxMC4wNDMsInN1YiI6IjY4NWQxMDAyMWE4ZTE3MmFjOTdlYzlkNCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.T1pFgTfZKmbItrkkqevlTxByM8PDxHsPHm80zlW6t9g';
 
 class MovieService {
-  static Future<MovieModel?> fetchMovie({required String page}) async {
+  static Future<MovieModel?> fetchMovie (String page) async {
     log("Servicega kirdi");
 
     final dio = Dio();
