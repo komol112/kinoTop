@@ -1,6 +1,8 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:kino_top/screens/navigation_screen.dart';
 import 'package:kino_top/screens/onoarding_screen.dart';
 
 class InitialScreen extends StatefulWidget {
@@ -18,7 +20,19 @@ class _InitialScreenState extends State<InitialScreen> {
     Future.delayed(Duration(seconds: 5)).then(
       (value) => Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => OnboardingScreen()),
+        MaterialPageRoute(
+          builder:
+              (context) => StreamBuilder(
+                stream: FirebaseAuth.instance.authStateChanges(),
+                builder: (context, snapshot) {
+                  if (snapshot.data == null) {
+                    return OnboardingScreen();
+                  } else {
+                    return NavigationScreen();
+                  }
+                },
+              ),
+        ),
       ),
     );
   }

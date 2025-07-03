@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:kino_top/models/movie_model.dart';
-import 'package:kino_top/repasitories/movie_service.dart';
+import 'package:kino_top/repasitories/services/movie_service.dart';
 
 class MovieProvider extends ChangeNotifier {
   bool isloading = false;
 
   MovieModel? movieModel;
   String errorMessage = "";
-  Future<void> getMovie() async {
+  Future<void> getMovie({required String page}) async {
     isloading = true;
     try {
-      final result = await MovieService.fetchMovie();
+      final result = await MovieService.fetchMovie(page: page);
       movieModel = result;
     } catch (e) {
       errorMessage = e.toString();
@@ -28,7 +28,6 @@ class MovieProvider extends ChangeNotifier {
     try {
       final getsearch = await MovieService.searchMovie(
         movieName: movieName,
-        page: page,
       );
       movieModel = getsearch;
     } catch (e) {

@@ -5,7 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:kino_top/screens/navigation_screen.dart';
 import 'package:kino_top/screens/sign_up_screen.dart';
-import 'package:kino_top/services/login_and_signIn_service.dart';
+import 'package:kino_top/repasitories/services/login_and_signIn_service.dart';
 
 class RegistrationScreen extends StatefulWidget {
   const RegistrationScreen({super.key});
