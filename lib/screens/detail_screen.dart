@@ -1,4 +1,9 @@
+// ignore_for_file: must_be_immutable
+
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kino_top/models/movie_model.dart';
 
 class DetailScreen extends StatefulWidget {
@@ -10,6 +15,58 @@ class DetailScreen extends StatefulWidget {
 }
 
 class _DetailScreenState extends State<DetailScreen> {
+  bool isLike = false;
+  final userId = FirebaseAuth.instance.currentUser?.uid;
+
+  @override
+  void initState() {
+    super.initState();
+    fetchLikeStatus();
+  }
+
+  Future<void> fetchLikeStatus() async {
+    if (userId == null) return;
+
+    final doc =
+        await FirebaseFirestore.instance.collection('likes').doc(userId).get();
+
+    if (doc.exists) {
+      setState(() {
+        isLike = doc.data()?[widget.movie.id.toString()] ?? false;
+      });
+    }
+  }
+
+  Future<void> toggleLike() async {
+    if (userId == null) return;
+
+    setState(() {
+      isLike = !isLike;
+    });
+
+    final likesRef = FirebaseFirestore.instance.collection('likes').doc(userId);
+    final moviesRef = FirebaseFirestore.instance.collection('movies');
+
+    await likesRef.set({
+      widget.movie.id.toString(): isLike,
+    }, SetOptions(merge: true));
+
+    if (isLike) {
+      await moviesRef.doc(widget.movie.id.toString()).set({
+        'id': widget.movie.id,
+        'title': widget.movie.title,
+        'posterPath': widget.movie.posterPath,
+        'overview': widget.movie.overview,
+        'voteAverage': widget.movie.voteAverage,
+        'popularity': widget.movie.popularity,
+        'releaseDate': widget.movie.releaseDate,
+        'originalLanguage': widget.movie.originalLanguage,
+      });
+    } else {
+      await moviesRef.doc(widget.movie.id.toString()).delete();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,6 +90,7 @@ class _DetailScreenState extends State<DetailScreen> {
               ),
             ),
           ),
+
           SafeArea(
             child: Row(
               children: [
@@ -75,6 +133,7 @@ class _DetailScreenState extends State<DetailScreen> {
                   ),
                 ),
               ],
+
             ),
           ),
           Padding(
@@ -107,7 +166,7 @@ class _DetailScreenState extends State<DetailScreen> {
                                 child: Text(
                                   maxLines: 1,
                                   overflow: TextOverflow.ellipsis,
-                                  widget.movie.originalTitle ?? "trailer",
+                                  widget.movie.title ?? "trailer",
                                   style: TextStyle(
                                     color:
                                         Theme.of(context).brightness ==
@@ -119,10 +178,8 @@ class _DetailScreenState extends State<DetailScreen> {
                                   ),
                                 ),
                               ),
-
                               Text(
-                                widget.movie.voteAverage.toString() ??
-                                    "trailer",
+                                widget.movie.voteAverage.toString(),
                                 style: TextStyle(
                                   color:
                                       Theme.of(context).brightness ==
@@ -135,7 +192,6 @@ class _DetailScreenState extends State<DetailScreen> {
                             ],
                           ),
                           Spacer(),
-
                           Container(
                             padding: EdgeInsets.all(4),
                             decoration: BoxDecoration(
@@ -160,16 +216,13 @@ class _DetailScreenState extends State<DetailScreen> {
                                             : Colors.grey.shade200,
                                   ),
                                 ),
-
                                 Icon(Icons.play_arrow_rounded),
                               ],
                             ),
                           ),
                         ],
                       ),
-
                       Divider(),
-
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -208,7 +261,6 @@ class _DetailScreenState extends State<DetailScreen> {
                           Column(
                             spacing: 8,
                             crossAxisAlignment: CrossAxisAlignment.start,
-
                             children: [
                               Text(
                                 "Popularity",
@@ -235,7 +287,6 @@ class _DetailScreenState extends State<DetailScreen> {
                           Column(
                             spacing: 8,
                             crossAxisAlignment: CrossAxisAlignment.start,
-
                             children: [
                               Text(
                                 "Relase Date",
@@ -261,21 +312,31 @@ class _DetailScreenState extends State<DetailScreen> {
                           ),
                         ],
                       ),
-
                       Column(
                         spacing: 8,
                         crossAxisAlignment: CrossAxisAlignment.start,
-
                         children: [
-                          Text(
-                            "Available in Language's",
-                            style: TextStyle(
-                              color:
-                                  Theme.of(context).brightness ==
-                                          Brightness.dark
-                                      ? Colors.grey.shade200
-                                      : Colors.grey.shade900,
-                            ),
+                          Row(
+                            children: [
+                              Text(
+                                "Available in Language's",
+                                style: TextStyle(color: Colors.grey.shade200),
+                              ),
+                              Spacer(),
+                              IconButton(
+                                onPressed: () {
+                                  toggleLike();
+                                },
+                                icon: Icon(
+                                  isLike
+                                      ? Icons.favorite
+                                      : Icons.favorite_border,
+                                  color: isLike ? Colors.red : Colors.grey,
+                                ),
+                              ),
+                              SizedBox(width: 20.w),
+                            ],
+
                           ),
                           Text(
                             widget.movie.originalLanguage.toString(),
@@ -284,11 +345,9 @@ class _DetailScreenState extends State<DetailScreen> {
                         ],
                       ),
                       Divider(),
-
                       Column(
                         spacing: 8,
                         crossAxisAlignment: CrossAxisAlignment.start,
-
                         children: [
                           Text(
                             "Story Plot",
