@@ -45,7 +45,10 @@ class _HomeScreenState extends State<HomeScreen> {
 
           appBar: AppBar(
             backgroundColor: Color(0xFF121011),
-            leading: Text("Hey, Sarthak"),
+            leading: Text(
+              "Hey, Sarthak",
+              style: TextStyle(color: Colors.black),
+            ),
             actions: [
               IconButton(
                 style: IconButton.styleFrom(backgroundColor: Color(0xFF1E1E1E)),
