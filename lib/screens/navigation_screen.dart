@@ -156,12 +156,12 @@ class _NavigationScreenState extends State<NavigationScreen> {
       backgroundColor: Color(0xFF121011),
 
       body: IndexedStack(index: selectedIndex, children: screens),
-      bottomNavigationBar: Padding(
-        padding: const EdgeInsets.only(left: 26, right: 25, bottom: 25),
+      floatingActionButton: Padding(
+        padding: const EdgeInsets.only(left: 50, right: 25),
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 13, vertical: 13),
           decoration: BoxDecoration(
-            color: Colors.grey[900],
+            color: Colors.blueGrey,
             borderRadius: BorderRadius.circular(100), // ✅ 100% radius
           ),
           child: Row(
