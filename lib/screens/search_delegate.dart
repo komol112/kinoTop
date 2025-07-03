@@ -16,18 +16,44 @@ class MovieSearchDelegate extends SearchDelegate {
   ThemeData appBarTheme(BuildContext context) {
     final theme = Theme.of(context);
     return theme.copyWith(
-      scaffoldBackgroundColor: Colors.black,
-      appBarTheme: const AppBarTheme(
-        backgroundColor: Colors.black,
+      scaffoldBackgroundColor:
+          Theme.of(context).brightness == Brightness.dark
+              ? Color(0xFF121011)
+              : Colors.white,
+      appBarTheme: AppBarTheme(
+        backgroundColor:
+            Theme.of(context).brightness == Brightness.dark
+                ? Color(0xFF121011)
+                : Colors.white,
         elevation: 0,
-        iconTheme: IconThemeData(color: Colors.white),
+        iconTheme: IconThemeData(
+          color:
+              Theme.of(context).brightness == Brightness.light
+                  ? Color(0xFF121011)
+                  : Colors.white,
+        ),
       ),
-      inputDecorationTheme: const InputDecorationTheme(
-        hintStyle: TextStyle(color: Colors.white60),
+      inputDecorationTheme: InputDecorationTheme(
+        hintStyle: TextStyle(
+          color:
+              Theme.of(context).brightness == Brightness.light
+                  ? Color(0xFF121011)
+                  : Colors.white,
+        ),
       ),
-      textTheme: const TextTheme(
-        titleMedium: TextStyle(color: Colors.white),
-        bodyMedium: TextStyle(color: Colors.white),
+      textTheme: TextTheme(
+        titleMedium: TextStyle(
+          color:
+              Theme.of(context).brightness == Brightness.light
+                  ? Color(0xFF121011)
+                  : Colors.white,
+        ),
+        bodyMedium: TextStyle(
+          color:
+              Theme.of(context).brightness == Brightness.light
+                  ? Color(0xFF121011)
+                  : Colors.white,
+        ),
       ),
     );
   }
@@ -113,8 +139,11 @@ class MovieSearchDelegate extends SearchDelegate {
                     result.title ?? "No title",
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
-                    style: const TextStyle(
-                      color: Colors.white,
+                    style: TextStyle(
+                      color:
+                          Theme.of(context).brightness == Brightness.light
+                              ? Color(0xFF121011)
+                              : Colors.white,
                       fontSize: 16,
                       fontWeight: FontWeight.w500,
                     ),

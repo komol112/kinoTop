@@ -39,29 +39,59 @@ class _HomeScreenState extends State<HomeScreen> {
 
         return Scaffold(
           resizeToAvoidBottomInset: true,
-          backgroundColor: Color(0xFF121011),
+          backgroundColor:
+              Theme.of(context).brightness == Brightness.dark
+                  ? Color(0xFF121011)
+                  : Colors.white,
 
           appBar: AppBar(
-            backgroundColor: Color(0xFF121011),
+            backgroundColor:
+                Theme.of(context).brightness == Brightness.dark
+                    ? Color(0xFF121011)
+                    : Colors.white,
             leading: Text("Hey, Sarthak"),
             actions: [
               IconButton(
-                style: IconButton.styleFrom(backgroundColor: Color(0xFF1E1E1E)),
+                style: IconButton.styleFrom(
+                  backgroundColor:
+                      Theme.of(context).brightness == Brightness.dark
+                          ? Colors.grey.shade900
+                          : Colors.grey.shade200,
+                ),
                 onPressed: () {
                   showSearch(context: context, delegate: MovieSearchDelegate());
                 },
-                icon: Icon(Icons.search, color: Colors.white, size: 35.sp),
+                icon: Icon(
+                  Icons.search,
+                  color:
+                      Theme.of(context).brightness == Brightness.dark
+                          ? Colors.grey.shade200
+                          : Colors.grey.shade900,
+                  size: 35.sp,
+                ),
               ),
               SizedBox(width: 10.w),
               IconButton(
-                style: IconButton.styleFrom(backgroundColor: Color(0xFF1E1E1E)),
+                style: IconButton.styleFrom(
+                  backgroundColor:
+                      Theme.of(context).brightness == Brightness.dark
+                          ? Colors.grey.shade900
+                          : Colors.grey.shade200,
+                ),
                 onPressed: () {
                   Navigator.push(
                     context,
                     MaterialPageRoute(builder: (context) => ProfileScreen()),
                   );
                 },
-                icon: Icon(Icons.person, color: Colors.white, size: 35.sp),
+                icon: Icon(
+                  Icons.person,
+                  color:
+                      Theme.of(context).brightness == Brightness.dark
+                          ? Colors.grey.shade200
+                          : Colors.grey.shade900,
+                  size: 35.sp,
+                ),
               ),
             ],
           ),
@@ -100,7 +130,11 @@ class _HomeScreenState extends State<HomeScreen> {
                                 ),
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(45),
-                                  color: Colors.grey.shade900,
+                                  color:
+                                      Theme.of(context).brightness ==
+                                              Brightness.dark
+                                          ? Colors.grey.shade900
+                                          : Colors.grey.shade200,
                                 ),
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -108,7 +142,11 @@ class _HomeScreenState extends State<HomeScreen> {
                                     Text(
                                       "Page 1",
                                       style: TextStyle(
-                                        color: Colors.white,
+                                        color:
+                                            Theme.of(context).brightness ==
+                                                    Brightness.dark
+                                                ? Colors.grey.shade200
+                                                : Colors.grey.shade900,
                                         fontSize: 11,
                                         fontWeight: FontWeight.w300,
                                       ),
@@ -116,14 +154,24 @@ class _HomeScreenState extends State<HomeScreen> {
                                     Text(
                                       movie.originalTitle ?? "Trailer",
                                       style: TextStyle(
-                                        color: Colors.white,
+                                        color:
+                                            Theme.of(context).brightness ==
+                                                    Brightness.dark
+                                                ? Colors.grey.shade200
+                                                : Colors.grey.shade900,
                                         fontSize: 16.5,
                                         fontWeight: FontWeight.w600,
                                       ),
                                     ),
                                     Text(
                                       "release date : ${movie.releaseDate ?? "Trailer"}",
-                                      style: TextStyle(color: Colors.grey),
+                                      style: TextStyle(
+                                        color:
+                                            Theme.of(context).brightness ==
+                                                    Brightness.dark
+                                                ? Colors.grey.shade200
+                                                : Colors.grey.shade900,
+                                      ),
                                     ),
                                     Row(
                                       children: [
@@ -133,7 +181,13 @@ class _HomeScreenState extends State<HomeScreen> {
                                         ),
                                         Text(
                                           movie.originalLanguage ?? "eng",
-                                          style: TextStyle(color: Colors.white),
+                                          style: TextStyle(
+                                            color:
+                                                Theme.of(context).brightness ==
+                                                        Brightness.dark
+                                                    ? Colors.grey.shade200
+                                                : Colors.grey.shade900,
+                                          ),
                                         ),
                                       ],
                                     ),
@@ -160,7 +214,10 @@ class _HomeScreenState extends State<HomeScreen> {
                     Text(
                       "Recommended Movies",
                       style: TextStyle(
-                        color: Colors.white,
+                        color:
+                            Theme.of(context).brightness == Brightness.dark
+                                ? Colors.grey.shade200
+                                                : Colors.grey.shade900,
                         fontSize: 18,
                         fontWeight: FontWeight.w600,
                       ),
@@ -215,7 +272,11 @@ class _HomeScreenState extends State<HomeScreen> {
                               movie.title ?? "No Title",
                               overflow: TextOverflow.ellipsis,
                               style: TextStyle(
-                                color: Colors.white,
+                                color:
+                                    Theme.of(context).brightness ==
+                                            Brightness.dark
+                                        ? Colors.grey.shade200
+                                        : Colors.grey.shade900,
                                 fontSize: 20,
                               ),
                             ),
@@ -263,7 +324,11 @@ class _HomeScreenState extends State<HomeScreen> {
                               movie.title ?? "No Title",
                               overflow: TextOverflow.ellipsis,
                               style: TextStyle(
-                                color: Colors.white,
+                                color:
+                                    Theme.of(context).brightness ==
+                                            Brightness.dark
+                                        ?Colors.grey.shade200
+                                        :Colors.grey.shade900,
                                 fontSize: 20,
                               ),
                             ),

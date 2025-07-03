@@ -176,8 +176,10 @@ class _NavigationScreenState extends State<NavigationScreen> {
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 13, vertical: 13),
           decoration: BoxDecoration(
-            color: Colors.blueGrey,
-         
+            color:
+                Theme.of(context).brightness == Brightness.dark
+                    ? Colors.grey.shade900
+                    : Colors.grey.shade200,
             borderRadius: BorderRadius.circular(100), // ✅ 100% radius
           ),
           child: Row(
@@ -200,9 +202,7 @@ class _NavigationScreenState extends State<NavigationScreen> {
                     color:
                         isSelected
                             ? Colors.red
-                            : Theme.of(context).brightness == Brightness.dark
-                            ? Colors.grey.shade200
-                            : Colors.grey.shade900,
+                            : Color.lerp(const Color(0xFF1F1F1F), const Color(0xFF333333), 3),
                     borderRadius: BorderRadius.circular(100),
                   ),
                   child:
@@ -212,31 +212,21 @@ class _NavigationScreenState extends State<NavigationScreen> {
                               Icon(
                                 icons[index],
                                 color:
-                                    Theme.of(context).brightness ==
-                                            Brightness.dark
-                                        ? Colors.grey.shade900
-                                        : Colors.grey.shade200,
+                                    Colors.grey.shade200,
                                 size: 30,
                               ),
                               const SizedBox(width: 8),
                               Text(
                                 labels[index],
                                 style: TextStyle(
-                                  color:
-                                      Theme.of(context).brightness ==
-                                              Brightness.dark
-                                          ? Colors.grey.shade900
-                                          : Colors.grey.shade200,
+                                  color: Colors.grey.shade200,
                                 ),
                               ),
                             ],
                           )
                           : Icon(
                             icons[index],
-                            color:
-                                Theme.of(context).brightness == Brightness.dark
-                                    ? Colors.grey.shade900
-                                    : Colors.grey.shade200,
+                            color: Colors.grey.shade200,
                             size: 24,
                           ),
                 ),
