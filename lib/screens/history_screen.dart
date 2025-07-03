@@ -5,6 +5,18 @@ class HitoryScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body: Center(child: Text("history Screen")));
+    return Scaffold(
+      body: Center(
+        child: Text(
+          "history Screen",
+          style: TextStyle(
+            color:
+                Theme.of(context).brightness == Brightness.dark
+                    ? Colors.grey.shade200
+                    : Colors.grey.shade900
+          ),
+        ),
+      ),
+    );
   }
 }

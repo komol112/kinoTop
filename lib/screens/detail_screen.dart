@@ -70,7 +70,10 @@ class _DetailScreenState extends State<DetailScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFF121011),
+      backgroundColor:
+          Theme.of(context).brightness == Brightness.dark
+              ? Color(0xFF121011)
+              : Colors.white,
       body: Stack(
         children: [
           Hero(
@@ -93,23 +96,41 @@ class _DetailScreenState extends State<DetailScreen> {
               children: [
                 IconButton(
                   style: IconButton.styleFrom(
-                    backgroundColor: Color(0xFF1E1E1E),
+                    backgroundColor:
+                        Theme.of(context).brightness == Brightness.dark
+                            ? Colors.grey.shade900
+                            : Colors.grey.shade200,
                   ),
                   onPressed: () {
                     Navigator.pop(context);
                   },
-                  icon: Icon(Icons.arrow_back_ios, color: Colors.grey.shade200),
+                  icon: Icon(
+                    Icons.arrow_back_ios,
+                    color:
+                        Theme.of(context).brightness == Brightness.dark
+                            ? Colors.grey.shade200
+                            : Colors.grey.shade900,
+                  ),
                 ),
                 Spacer(),
 
                 IconButton(
                   style: IconButton.styleFrom(
-                    backgroundColor: Color(0xFF1E1E1E),
+                    backgroundColor:
+                        Theme.of(context).brightness == Brightness.dark
+                            ? Colors.grey.shade900
+                            : Colors.grey.shade200,
                   ),
                   onPressed: () {
                     Navigator.pop(context);
                   },
-                  icon: Icon(Icons.menu, color: Colors.grey.shade200),
+                  icon: Icon(
+                    Icons.menu,
+                    color:
+                        Theme.of(context).brightness == Brightness.dark
+                            ? Colors.grey.shade200
+                            : Colors.grey.shade900,
+                  ),
                 ),
               ],
 
@@ -125,7 +146,10 @@ class _DetailScreenState extends State<DetailScreen> {
                   padding: EdgeInsets.symmetric(vertical: 20, horizontal: 25),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(40),
-                    color: Color(0xFF1E1E1E),
+                    color:
+                        Theme.of(context).brightness == Brightness.dark
+                            ? Colors.grey.shade900
+                            : Colors.grey.shade200
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -144,7 +168,11 @@ class _DetailScreenState extends State<DetailScreen> {
                                   overflow: TextOverflow.ellipsis,
                                   widget.movie.title ?? "trailer",
                                   style: TextStyle(
-                                    color: Colors.grey.shade200,
+                                    color:
+                                        Theme.of(context).brightness ==
+                                                Brightness.dark
+                                            ? Colors.grey.shade200
+                                            : Colors.grey.shade900,
                                     fontSize: 20,
                                     fontWeight: FontWeight.w500,
                                   ),
@@ -153,7 +181,11 @@ class _DetailScreenState extends State<DetailScreen> {
                               Text(
                                 widget.movie.voteAverage.toString(),
                                 style: TextStyle(
-                                  color: Colors.grey.shade200,
+                                  color:
+                                      Theme.of(context).brightness ==
+                                              Brightness.dark
+                                          ? Colors.grey.shade200
+                                          : Colors.grey.shade900,
                                   fontSize: 14,
                                 ),
                               ),
@@ -176,7 +208,13 @@ class _DetailScreenState extends State<DetailScreen> {
                               children: [
                                 Text(
                                   "Watch trailer",
-                                  style: TextStyle(color: Colors.grey.shade200),
+                                  style: TextStyle(
+                                    color:
+                                        Theme.of(context).brightness ==
+                                                Brightness.dark
+                                            ? Colors.grey.shade900
+                                            : Colors.grey.shade200,
+                                  ),
                                 ),
                                 Icon(Icons.play_arrow_rounded),
                               ],
@@ -194,7 +232,13 @@ class _DetailScreenState extends State<DetailScreen> {
                             children: [
                               Text(
                                 "Censor Raiting",
-                                style: TextStyle(color: Colors.grey.shade200),
+                                style: TextStyle(
+                                  color:
+                                      Theme.of(context).brightness ==
+                                              Brightness.dark
+                                          ? Colors.grey.shade200
+                                          : Colors.grey.shade900,
+                                ),
                               ),
                               Row(
                                 spacing: 5,
@@ -203,7 +247,11 @@ class _DetailScreenState extends State<DetailScreen> {
                                   Text(
                                     widget.movie.voteAverage.toString(),
                                     style: TextStyle(
-                                      color: Colors.grey.shade200,
+                                      color:
+                                          Theme.of(context).brightness ==
+                                                  Brightness.dark
+                                              ? Colors.grey.shade200
+                                              : Colors.grey.shade900,
                                     ),
                                   ),
                                 ],
@@ -216,11 +264,23 @@ class _DetailScreenState extends State<DetailScreen> {
                             children: [
                               Text(
                                 "Popularity",
-                                style: TextStyle(color: Colors.grey.shade200),
+                                style: TextStyle(
+                                  color:
+                                      Theme.of(context).brightness ==
+                                              Brightness.dark
+                                          ? Colors.grey.shade200
+                                          : Colors.grey.shade900,
+                                ),
                               ),
                               Text(
                                 widget.movie.popularity.toString(),
-                                style: TextStyle(color: Colors.grey.shade200),
+                                style: TextStyle(
+                                  color:
+                                      Theme.of(context).brightness ==
+                                              Brightness.dark
+                                          ? Colors.grey.shade200
+                                          : Colors.grey.shade900,
+                                ),
                               ),
                             ],
                           ),
@@ -230,11 +290,23 @@ class _DetailScreenState extends State<DetailScreen> {
                             children: [
                               Text(
                                 "Relase Date",
-                                style: TextStyle(color: Colors.grey.shade200),
+                                style: TextStyle(
+                                  color:
+                                      Theme.of(context).brightness ==
+                                              Brightness.dark
+                                          ? Colors.grey.shade200
+                                          : Colors.grey.shade900,
+                                ),
                               ),
                               Text(
                                 widget.movie.releaseDate.toString(),
-                                style: TextStyle(color: Colors.grey.shade200),
+                                style: TextStyle(
+                                  color:
+                                      Theme.of(context).brightness ==
+                                              Brightness.dark
+                                          ? Colors.grey.shade200
+                                          : Colors.grey.shade900,
+                                ),
                               ),
                             ],
                           ),
@@ -264,6 +336,7 @@ class _DetailScreenState extends State<DetailScreen> {
                               ),
                               SizedBox(width: 20.w),
                             ],
+
                           ),
                           Text(
                             widget.movie.originalLanguage.toString(),
@@ -279,7 +352,11 @@ class _DetailScreenState extends State<DetailScreen> {
                           Text(
                             "Story Plot",
                             style: TextStyle(
-                              color: Colors.grey.shade200,
+                              color:
+                                  Theme.of(context).brightness ==
+                                          Brightness.dark
+                                      ? Colors.grey.shade200
+                                      : Colors.grey.shade900,
                               fontSize: 16,
                               fontWeight: FontWeight.w500,
                             ),
@@ -288,7 +365,11 @@ class _DetailScreenState extends State<DetailScreen> {
                             maxLines: 4,
                             widget.movie.overview.toString(),
                             style: TextStyle(
-                              color: Colors.grey.shade200,
+                              color:
+                                  Theme.of(context).brightness ==
+                                          Brightness.dark
+                                      ? Colors.grey.shade200
+                                      : Colors.grey.shade900,
                               fontSize: 13,
                               fontWeight: FontWeight.w200,
                             ),
@@ -309,7 +390,10 @@ class _DetailScreenState extends State<DetailScreen> {
                           borderRadius: BorderRadius.circular(10),
                         ),
                         backgroundColor: Color(0xFfEB2F3D),
-                        foregroundColor: Colors.white,
+                        foregroundColor:
+                            Theme.of(context).brightness == Brightness.dark
+                                ? Colors.grey.shade200
+                                : Colors.grey.shade900,
                         minimumSize: Size(double.infinity, 60),
                       ),
                       onPressed: () {},

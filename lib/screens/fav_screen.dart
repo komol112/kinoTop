@@ -81,6 +81,7 @@ class FavScreen extends StatelessWidget {
             },
           );
         },
+
       ),
     );
   }
