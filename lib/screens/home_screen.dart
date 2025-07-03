@@ -83,7 +83,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             child: Image.network(
                               'https://image.tmdb.org/t/p/w500${movie.backdropPath}',
                               width: double.infinity,
-                              height: 220,
+                              height: 230,
                               fit: BoxFit.cover,
                             ),
                           ),
@@ -146,11 +146,11 @@ class _HomeScreenState extends State<HomeScreen> {
                       );
                     },
                     options: CarouselOptions(
-                      height: 320,
+                      height: 330,
                       autoPlay: true,
-                      autoPlayInterval: Duration(seconds: 2),
+                      autoPlayInterval: Duration(seconds: 3),
                       enlargeCenterPage: true,
-                      viewportFraction: 0.9,
+                      viewportFraction: 0.98,
                     ),
                   ),
                 ),
