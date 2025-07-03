@@ -30,31 +30,32 @@ class _DetailScreenState extends State<DetailScreen> {
               ),
             ),
           ),
+          SafeArea(
+            child: Row(
+              children: [
+                IconButton(
+                  style: IconButton.styleFrom(
+                    backgroundColor: Color(0xFF1E1E1E),
+                  ),
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  icon: Icon(Icons.arrow_back_ios, color: Colors.grey.shade200),
+                ),
+                Spacer(),
 
-          Positioned(
-            top: 10,
-            left: 10,
-            child: IconButton(
-              style: IconButton.styleFrom(backgroundColor: Color(0xFF1E1E1E)),
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              icon: Icon(Icons.arrow_back_ios, color: Colors.grey.shade200),
+                IconButton(
+                  style: IconButton.styleFrom(
+                    backgroundColor: Color(0xFF1E1E1E),
+                  ),
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  icon: Icon(Icons.menu, color: Colors.grey.shade200),
+                ),
+              ],
             ),
           ),
-
-          Positioned(
-            top: 10,
-            right: 10,
-            child: IconButton(
-              style: IconButton.styleFrom(backgroundColor: Color(0xFF1E1E1E)),
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              icon: Icon(Icons.menu, color: Colors.grey.shade200),
-            ),
-          ),
-
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 25),
             child: Column(
@@ -69,7 +70,7 @@ class _DetailScreenState extends State<DetailScreen> {
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    spacing: 15,
+                    spacing: 8,
                     children: [
                       Row(
                         spacing: 15,
@@ -234,20 +235,22 @@ class _DetailScreenState extends State<DetailScreen> {
                   ),
                 ),
 
-                Padding(
-                  padding: const EdgeInsets.all(13.0),
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      elevation: 0,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10),
+                SafeArea(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        elevation: 0,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        backgroundColor: Color(0xFfEB2F3D),
+                        foregroundColor: Colors.white,
+                        minimumSize: Size(double.infinity, 60),
                       ),
-                      backgroundColor: Color(0xFfEB2F3D),
-                      foregroundColor: Colors.white,
-                      minimumSize: Size(double.infinity, 60),
+                      onPressed: () {},
+                      child: Text("Book Tickets"),
                     ),
-                    onPressed: () {},
-                    child: Text("Book Tickets"),
                   ),
                 ),
               ],

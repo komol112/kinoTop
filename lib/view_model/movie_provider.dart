@@ -3,35 +3,55 @@ import 'package:kino_top/models/movie_model.dart';
 import 'package:kino_top/repasitories/services/movie_service.dart';
 
 class MovieProvider extends ChangeNotifier {
-  bool isloading = false;
-
-  MovieModel? movieModel;
+  bool isLoading = false;
   String errorMessage = "";
-  Future<void> getMovie({required String page}) async {
-    isloading = true;
+
+  /// Sahifalar bo‘yicha filmlar: Map<page, list of results>
+  final Map<int, List<Results>> pagedMovies = {};
+
+  /// Qidiruv natijalari uchun
+  MovieModel? searchResult;
+
+  /// API orqali sahifa bo‘yicha ma’lumot olish
+  Future<void> getMovie({required int page}) async {
+    isLoading = true;
+    notifyListeners();
+
     try {
-      final result = await MovieService.fetchMovie(page: page);
-      movieModel = result;
+      final fetchedData = await MovieService.fetchMovie(page.toString(),);
+
+      if (fetchedData?.results != null) {
+        pagedMovies[page] = fetchedData!.results!;
+      } else {
+        errorMessage = "Ma'lumot yo'q";
+      }
     } catch (e) {
-      errorMessage = e.toString();
-    } finally {
-      isloading = false;
-      notifyListeners();
+      errorMessage = "Xatolik: ${e.toString()}";
     }
+
+    isLoading = false;
+    notifyListeners();
   }
 
+  /// Qidiruv
   Future<void> searchMovie({
     required String movieName,
-    required String page,
   }) async {
-    isloading = true;
+    isLoading = true;
+    notifyListeners();
     try {
-      final getsearch = await MovieService.searchMovie(
-        movieName: movieName,
-      );
-      movieModel = getsearch;
+      final result = await MovieService.searchMovie(movieName: movieName);
+      searchResult = result;
     } catch (e) {
-      throw Exception(e);
+      errorMessage = "Qidiruvda xatolik: ${e.toString()}";
     }
+    isLoading = false;
+    notifyListeners();
+  }
+
+  /// Barcha sahifalarni tozalash
+  void clearMovies() {
+    pagedMovies.clear();
+    notifyListeners();
   }
 }
