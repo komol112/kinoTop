@@ -3,7 +3,7 @@ import 'dart:developer';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:kino_top/models/movie_model.dart';
-import 'package:kino_top/screens/detail_screen.dart';
+import 'package:kino_top/view/screens/detail_screen.dart';
 
 class FavScreen extends StatelessWidget {
   const FavScreen({super.key});
@@ -49,6 +49,7 @@ class FavScreen extends StatelessWidget {
                     MaterialPageRoute(
                       builder:
                           (context) => DetailScreen(
+                            isLike: true,
                             movie: Results(
                               posterPath: data["posterPath"],
                               title: data["title"],
@@ -81,7 +82,6 @@ class FavScreen extends StatelessWidget {
             },
           );
         },
-
       ),
     );
   }

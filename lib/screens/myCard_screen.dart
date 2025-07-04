@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:kino_top/models/movie_model.dart';
-import 'package:kino_top/screens/detail_screen.dart';
+import 'package:kino_top/view/screens/detail_screen.dart';
 
 class MyCardScreen extends StatefulWidget {
   const MyCardScreen({super.key});

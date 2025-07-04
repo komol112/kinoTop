@@ -7,16 +7,16 @@ import 'package:kino_top/models/movie_model.dart';
 
 class DetailScreen extends StatefulWidget {
   Results movie;
-  DetailScreen({super.key, required this.movie});
+  bool? isLike;
+  DetailScreen({super.key, this.isLike, required this.movie});
 
   @override
   State<DetailScreen> createState() => _DetailScreenState();
 }
 
 class _DetailScreenState extends State<DetailScreen> {
-  bool isLike = false;
-  String? selectedStatus;
   final userId = FirebaseAuth.instance.currentUser?.uid;
+  String? selectedStatus;
 
   String get movieDocId => '${userId}_${widget.movie.id}';
 
@@ -34,7 +34,7 @@ class _DetailScreenState extends State<DetailScreen> {
         await FirebaseFirestore.instance.collection('likes').doc(userId).get();
     if (doc.exists) {
       setState(() {
-        isLike = doc.data()?[widget.movie.id.toString()] ?? false;
+        widget.isLike = doc.data()?[widget.movie.id.toString()] ?? false;
       });
     }
   }
@@ -58,17 +58,17 @@ class _DetailScreenState extends State<DetailScreen> {
     if (userId == null) return;
 
     setState(() {
-      isLike = !isLike;
+      widget.isLike = !(widget.isLike ?? false);
     });
 
     final likesRef = FirebaseFirestore.instance.collection('likes').doc(userId);
     final moviesRef = FirebaseFirestore.instance.collection('movies');
 
     await likesRef.set({
-      widget.movie.id.toString(): isLike,
+      widget.movie.id.toString(): widget.isLike,
     }, SetOptions(merge: true));
 
-    if (isLike) {
+    if (widget.isLike == true) {
       await moviesRef.doc(movieDocId).set({
         'id': widget.movie.id,
         'title': widget.movie.title,
@@ -129,9 +129,7 @@ class _DetailScreenState extends State<DetailScreen> {
       body: Stack(
         children: [
           Hero(
-            tag: ValueKey(
-              "https://image.tmdb.org/t/p/w500${widget.movie.posterPath}",
-            ),
+            tag: "https://image.tmdb.org/t/p/w500${widget.movie.posterPath}",
             child: ClipRRect(
               borderRadius: BorderRadius.vertical(bottom: Radius.circular(40)),
               child: Image.network(
@@ -289,8 +287,13 @@ class _DetailScreenState extends State<DetailScreen> {
                           IconButton(
                             onPressed: toggleLike,
                             icon: Icon(
-                              isLike ? Icons.favorite : Icons.favorite_border,
-                              color: isLike ? Colors.red : Colors.grey,
+                              widget.isLike == true
+                                  ? Icons.favorite
+                                  : Icons.favorite_border,
+                              color:
+                                  widget.isLike == true
+                                      ? Colors.red
+                                      : Colors.grey,
                             ),
                           ),
                         ],
