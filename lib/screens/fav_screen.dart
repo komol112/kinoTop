@@ -22,9 +22,7 @@ class FavScreen extends StatelessWidget {
           if (!snapshot.hasData) {
             return const Center(child: CircularProgressIndicator());
           }
-
           final docs = snapshot.data!.docs;
-
           if (docs.isEmpty) {
             return const Center(
               child: Text(

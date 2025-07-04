@@ -197,12 +197,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
       spacing: 10,
       children: [
         SizedBox(height: 50.h),
-
         buildImageGridRow(images1, _scrollController1),
         buildImageGridRow(images2, _scrollController2),
-        SizedBox(height: 50),
         Spacer(),
-
         SizedBox(
           width: 280.w,
           child: Text(
@@ -211,7 +208,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             style: TextStyle(color: Colors.white, fontSize: 20.sp),
           ),
         ),
-        SizedBox(height: 30.h),
+        SizedBox(height: 10.h),
       ],
     );
   }

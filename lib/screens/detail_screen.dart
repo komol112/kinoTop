@@ -53,6 +53,7 @@ class _DetailScreenState extends State<DetailScreen> {
 
     if (isLike) {
       await moviesRef.doc(widget.movie.id.toString()).set({
+        
         'id': widget.movie.id,
         'title': widget.movie.title,
         'posterPath': widget.movie.posterPath,
@@ -87,7 +88,6 @@ class _DetailScreenState extends State<DetailScreen> {
               ),
             ),
           ),
-
           SafeArea(
             child: Row(
               children: [
@@ -101,7 +101,6 @@ class _DetailScreenState extends State<DetailScreen> {
                   icon: Icon(Icons.arrow_back_ios, color: Colors.grey.shade200),
                 ),
                 Spacer(),
-
                 IconButton(
                   style: IconButton.styleFrom(
                     backgroundColor: Color(0xFF1E1E1E),
@@ -112,7 +111,6 @@ class _DetailScreenState extends State<DetailScreen> {
                   icon: Icon(Icons.menu, color: Colors.grey.shade200),
                 ),
               ],
-
             ),
           ),
           Padding(

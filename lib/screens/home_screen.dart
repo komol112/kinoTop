@@ -33,10 +33,6 @@ class _HomeScreenState extends State<HomeScreen> {
         final page1 = movieProvider.pagedMovies[1] ?? [];
         final page2 = movieProvider.pagedMovies[2] ?? [];
 
-        if (page1 == null || page2 == null) {
-          return Center(child: CircularProgressIndicator());
-        }
-
         return Scaffold(
           resizeToAvoidBottomInset: true,
           backgroundColor: Color(0xFF121011),
