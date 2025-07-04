@@ -36,7 +36,7 @@ class MovieProvider extends ChangeNotifier {
         // Har bir filmga default status biriktiramiz
         final List<Results> updatedResults =
             fetchedData!.results!.map((movie) {
-              movie.status ??= "Korilmagan"; // Agar status null bo‘lsa
+              movie.status; // Agar status null bo‘lsa
               return movie;
             }).toList();
 
@@ -64,7 +64,7 @@ class MovieProvider extends ChangeNotifier {
       if (searchResult?.results != null) {
         searchResult!.results =
             searchResult!.results!.map((movie) {
-              movie.status ??= "Korilmagan";
+              movie.status;
               return movie;
             }).toList();
       }

@@ -302,13 +302,14 @@ class getAllMoviesScrolWidget extends StatelessWidget {
 
         return GridView.builder(
           controller: _scrollController,
-          padding: const EdgeInsets.all(15),
+          padding: const EdgeInsets.all(10),
           itemCount: controller.movies.length + (controller.isLoading ? 2 : 0),
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 2,
-            childAspectRatio: 0.6,
+            childAspectRatio: 0.9,
             crossAxisSpacing: 10,
-            mainAxisSpacing: 10,
+
+            mainAxisSpacing: 3,
           ),
           itemBuilder: (context, index) {
             // Yangi sahifa yuklanayotganda loading indikator ko'rsatish
@@ -333,7 +334,7 @@ class getAllMoviesScrolWidget extends StatelessWidget {
                     borderRadius: BorderRadius.circular(16),
                     child: Image.network(
                       'https://image.tmdb.org/t/p/w500${movie.posterPath}',
-                      height: 250,
+                      height: 250.h,
                       width: double.infinity,
                       fit: BoxFit.cover,
                       errorBuilder:

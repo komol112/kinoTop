@@ -1,7 +1,6 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:kino_top/view/screens/detail_screen.dart';
 import 'package:kino_top/view/utils/widgets.dart';
 import 'package:kino_top/view_model/movie_provider.dart';
 import 'package:provider/provider.dart';
