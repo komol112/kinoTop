@@ -1,6 +1,7 @@
 // ignore_for_file: must_be_immutable
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -204,7 +205,7 @@ class _DetailScreenState extends State<DetailScreen> {
                             child: Row(
                               children: [
                                 Text(
-                                  "Watch trailer",
+                                  'watch_trailer'.tr(),
                                   style: TextStyle(
                                     color:
                                         Theme.of(context).brightness ==
@@ -228,7 +229,7 @@ class _DetailScreenState extends State<DetailScreen> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                "Censor Raiting",
+                                'censor_raiting',
                                 style: TextStyle(
                                   color:
                                       Theme.of(context).brightness ==
@@ -260,7 +261,7 @@ class _DetailScreenState extends State<DetailScreen> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                "Popularity",
+                                'popularity'.tr(),
                                 style: TextStyle(
                                   color:
                                       Theme.of(context).brightness ==
@@ -286,7 +287,7 @@ class _DetailScreenState extends State<DetailScreen> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                "Relase Date",
+                                'relase_date'.tr(),
                                 style: TextStyle(
                                   color:
                                       Theme.of(context).brightness ==
@@ -316,7 +317,7 @@ class _DetailScreenState extends State<DetailScreen> {
                           Row(
                             children: [
                               Text(
-                                "Available in Language's",
+                                'available_languages'.tr(),
                                 style: TextStyle(color: Colors.grey.shade200),
                               ),
                               Spacer(),
@@ -347,7 +348,7 @@ class _DetailScreenState extends State<DetailScreen> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            "Story Plot",
+                            'story_plot',
                             style: TextStyle(
                               color:
                                   Theme.of(context).brightness ==
@@ -395,7 +396,7 @@ class _DetailScreenState extends State<DetailScreen> {
                         minimumSize: Size(double.infinity, 60),
                       ),
                       onPressed: () {},
-                      child: Text("Book Tickets"),
+                      child: Text('book_tickets'),
                     ),
                   ),
                 ),

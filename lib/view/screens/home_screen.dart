@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -49,7 +50,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 Theme.of(context).brightness == Brightness.dark
                     ? Color(0xFF121011)
                     : Colors.white,
-            leading: Text("Hey, Sarthak"),
+            leading: Text('hey_user'.tr()),
             actions: [
               searchDelegateWidget(context),
               SizedBox(width: 10.w),
@@ -62,13 +63,13 @@ class _HomeScreenState extends State<HomeScreen> {
               children: [
                 pageViewAvtoScrollWidget(page1),
 
-                SeeAllButtonWidget(context, text: "Recommended Movies"),
+                SeeAllButtonWidget(context, text: 'recommended_movies'.tr()),
 
                 SizedBox(height: 5),
 
                 pageOneScrollWidget(page1, context),
 
-                SeeAllButtonWidget(context, text: "Top Movies "),
+                SeeAllButtonWidget(context, text: 'top_movies'.tr()),
 
                 SizedBox(height: 5),
 

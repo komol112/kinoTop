@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
@@ -33,7 +34,10 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFf121011),
+      backgroundColor:
+          Theme.of(context).brightness == Brightness.dark
+              ? Color(0xFF121011)
+              : Colors.white,
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(19.0),
         child: SafeArea(
@@ -46,7 +50,10 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                 style: TextStyle(
                   fontSize: 25.sp,
                   fontWeight: FontWeight.w600,
-                  color: Colors.white,
+                  color:
+                      Theme.of(context).brightness == Brightness.light
+                          ? Color(0xFF121011)
+                          : Colors.white,
                 ),
               ),
 
@@ -54,40 +61,80 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                 controller: emailController,
                 decoration: InputDecoration(
                   prefixIcon: Icon(Icons.email_outlined),
-                  labelStyle: TextStyle(color: Colors.grey),
+                  labelStyle: TextStyle(
+                    color:
+                        Theme.of(context).brightness == Brightness.light
+                            ? Color(0xFF121011)
+                            : Colors.grey,
+                  ),
                   labelText: "E-mail",
 
                   enabled: true,
                   enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(20.r),
-                    borderSide: BorderSide(color: Colors.grey),
+                    borderSide: BorderSide(
+                      color:
+                          Theme.of(context).brightness == Brightness.light
+                              ? Color(0xFF121011)
+                              : Colors.grey,
+                    ),
                   ),
 
                   focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(20.r),
-                    borderSide: BorderSide(color: Colors.grey),
+                    borderSide: BorderSide(
+                      color:
+                          Theme.of(context).brightness == Brightness.light
+                              ? Color(0xFF121011)
+                              : Colors.grey,
+                    ),
                   ),
                 ),
-                style: TextStyle(color: Colors.grey),
+                style: TextStyle(
+                  color:
+                      Theme.of(context).brightness == Brightness.light
+                          ? Color(0xFF121011)
+                          : Colors.grey,
+                ),
               ),
 
               TextField(
-                style: TextStyle(color: Colors.grey),
+                style: TextStyle(
+                  color:
+                      Theme.of(context).brightness == Brightness.light
+                          ? Color(0xFF121011)
+                          : Colors.grey,
+                ),
 
                 controller: passwordController,
                 decoration: InputDecoration(
                   prefixIcon: Icon(Icons.lock_outline),
-                  labelStyle: TextStyle(color: Colors.grey),
-                  labelText: "Password",
+                  labelStyle: TextStyle(
+                    color:
+                        Theme.of(context).brightness == Brightness.light
+                            ? Color(0xFF121011)
+                            : Colors.grey,
+                  ),
+                  labelText: 'password',
                   enabled: true,
                   enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(20.r),
-                    borderSide: BorderSide(color: Colors.grey),
+                    borderSide: BorderSide(
+                      color:
+                          Theme.of(context).brightness == Brightness.light
+                              ? Color(0xFF121011)
+                              : Colors.grey,
+                    ),
                   ),
 
                   focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(20.r),
-                    borderSide: BorderSide(color: Colors.grey),
+                    borderSide: BorderSide(
+                      color:
+                          Theme.of(context).brightness == Brightness.light
+                              ? Color(0xFF121011)
+                              : Colors.grey,
+                    ),
                   ),
                 ),
               ),
@@ -98,10 +145,13 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                   TextButton(
                     onPressed: () {},
                     child: Text(
-                      "Forgot password?",
+                      'forgot_password'.tr(),
                       style: TextStyle(
                         fontWeight: FontWeight.w200,
-                        color: Colors.grey.shade300,
+                        color:
+                            Theme.of(context).brightness == Brightness.light
+                                ? Color(0xFF121011)
+                                : Colors.grey.shade300,
                       ),
                     ),
                   ),
@@ -148,11 +198,15 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10.r),
                   ),
-                  foregroundColor: Colors.white,
+                  foregroundColor: Theme.of(context).brightness == Brightness.light
+                  ? Color(0xFF121011)
+                  : Colors.white,
                 ),
                 child:
                     isLoading
-                        ? const CircularProgressIndicator(color: Colors.white)
+                        ?  CircularProgressIndicator(color: Theme.of(context).brightness == Brightness.light
+                  ? Color(0xFF121011)
+                  : Colors.white,)
                         : const Text("Sign in"),
               ),
 
@@ -164,7 +218,12 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                 spacing: 10,
                 children: [
                   Expanded(child: Divider()),
-                  Text("OR", style: TextStyle(color: Colors.grey.shade300)),
+                  Text(
+                    'or'.tr(),
+                    style: TextStyle(color: Theme.of(context).brightness == Brightness.light
+                  ? Color(0xFF121011)
+                  : Colors.grey.shade300,),
+                  ),
                   Expanded(child: Divider()),
                 ],
               ),
@@ -175,7 +234,9 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
                       minimumSize: Size(100, 50),
-                      backgroundColor: Color(0xFF1E1E1E),
+                      backgroundColor: Theme.of(context).brightness == Brightness.dark
+                  ? Color(0xFF121011)
+                  : Colors.white,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10),
                       ),
@@ -188,7 +249,9 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                     style: ElevatedButton.styleFrom(
                       minimumSize: Size(100, 50),
 
-                      backgroundColor: Color(0xFF1E1E1E),
+                      backgroundColor: Theme.of(context).brightness == Brightness.dark
+                  ? Color(0xFF121011)
+                  : Colors.white,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10),
                       ),
@@ -201,7 +264,9 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                     style: ElevatedButton.styleFrom(
                       minimumSize: Size(100, 50),
 
-                      backgroundColor: Color(0xFF1E1E1E),
+                      backgroundColor: Theme.of(context).brightness == Brightness.dark
+                  ? Color(0xFF121011)
+                  : Colors.white,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10),
                       ),
@@ -217,8 +282,10 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    "Don't have an account?",
-                    style: TextStyle(fontSize: 15.sp, color: Colors.grey),
+                    'have_account'.tr(),
+                    style: TextStyle(fontSize: 15.sp, color: Theme.of(context).brightness == Brightness.light
+                  ? Color(0xFF121011)
+                  : Colors.grey,),
                   ),
                   TextButton(
                     onPressed: () async {

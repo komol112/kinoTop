@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
@@ -34,7 +35,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFf121011),
+      backgroundColor: Theme.of(context).brightness == Brightness.dark
+                  ? Color(0xFF121011)
+                  : Colors.white,
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(19.0),
@@ -48,88 +51,122 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   style: TextStyle(
                     fontSize: 25.sp,
                     fontWeight: FontWeight.w600,
-                    color: Colors.white,
+                    color: Theme.of(context).brightness == Brightness.light
+                  ? Color(0xFF121011)
+                  : Colors.white,
                   ),
                 ),
 
                 TextField(
-                  style: TextStyle(color: Colors.grey),
+                  style: TextStyle(color: Theme.of(context).brightness == Brightness.light
+                  ? Color(0xFF121011)
+                  : Colors.grey,),
 
                   controller: firsNamecontroller,
 
                   decoration: InputDecoration(
                     prefixIcon: Icon(Icons.person_outline),
-                    labelStyle: TextStyle(color: Colors.grey),
-                    labelText: "First name",
+                    labelStyle: TextStyle(color: Theme.of(context).brightness == Brightness.light
+                  ? Color(0xFF121011)
+                  : Colors.grey,),
+                    labelText: 'first_name'.tr(),
                     enabled: true,
                     enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(20.r),
-                      borderSide: BorderSide(color: Colors.grey),
+                      borderSide: BorderSide(color: Theme.of(context).brightness == Brightness.light
+                  ? Color(0xFF121011)
+                  : Colors.grey,),
                     ),
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(20.r),
-                      borderSide: BorderSide(color: Colors.grey),
+                      borderSide: BorderSide(color: Theme.of(context).brightness == Brightness.light
+                  ? Color(0xFF121011)
+                  : Colors.grey,),
                     ),
                   ),
                 ),
 
                 TextField(
                   controller: lastNamecontroller,
-                  style: TextStyle(color: Colors.grey),
+                  style: TextStyle(color: Theme.of(context).brightness == Brightness.light
+                  ? Color(0xFF121011)
+                  : Colors.grey,),
 
                   decoration: InputDecoration(
                     prefixIcon: Icon(Icons.person_outline),
-                    labelStyle: TextStyle(color: Colors.grey),
-                    labelText: "Last name",
+                    labelStyle: TextStyle(color: Theme.of(context).brightness == Brightness.light
+                  ? Color(0xFF121011)
+                  : Colors.grey,),
+                    labelText: 'last_name'.tr(),
                     enabled: true,
                     enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(20.r),
-                      borderSide: BorderSide(color: Colors.grey),
+                      borderSide: BorderSide(color: Theme.of(context).brightness == Brightness.light
+                  ? Color(0xFF121011)
+                  : Colors.grey,),
                     ),
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(20.r),
-                      borderSide: BorderSide(color: Colors.grey),
+                      borderSide: BorderSide(color: Theme.of(context).brightness == Brightness.light
+                  ? Color(0xFF121011)
+                  : Colors.grey,),
                     ),
                   ),
                 ),
 
                 TextField(
-                  style: TextStyle(color: Colors.grey),
+                  style: TextStyle(color: Theme.of(context).brightness == Brightness.light
+                  ? Color(0xFF121011)
+                  : Colors.grey,),
 
                   controller: emailController,
                   decoration: InputDecoration(
                     prefixIcon: Icon(Icons.mail_outline),
-                    labelStyle: TextStyle(color: Colors.grey),
+                    labelStyle: TextStyle(color: Theme.of(context).brightness == Brightness.light
+                  ? Color(0xFF121011)
+                  : Colors.grey,),
                     labelText: "E-mail",
                     enabled: true,
                     enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(20.r),
-                      borderSide: BorderSide(color: Colors.grey),
+                      borderSide: BorderSide(color: Theme.of(context).brightness == Brightness.light
+                  ? Color(0xFF121011)
+                  : Colors.grey,),
                     ),
 
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(20.r),
-                      borderSide: BorderSide(color: Colors.grey),
+                      borderSide: BorderSide(color: Theme.of(context).brightness == Brightness.light
+                  ? Color(0xFF121011)
+                  : Colors.grey,),
                     ),
                   ),
                 ),
 
                 TextField(
-                  style: TextStyle(color: Colors.grey),
+                  style: TextStyle(color: Theme.of(context).brightness == Brightness.light
+                  ? Color(0xFF121011)
+                  : Colors.grey,),
 
                   controller: passwordController,
                   decoration: InputDecoration(
                     prefixIcon: Icon(Icons.lock_outline),
-                    labelStyle: TextStyle(color: Colors.grey),
-                    labelText: "Password",
+                    labelStyle: TextStyle(color: Theme.of(context).brightness == Brightness.light
+                  ? Color(0xFF121011)
+                  : Colors.grey,),
+                    labelText: 'password'.tr(),
                     enabled: true,
                     enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(20.r),
-                      borderSide: BorderSide(color: Colors.grey),
+                      borderSide: BorderSide(color: Theme.of(context).brightness == Brightness.light
+                  ? Color(0xFF121011)
+                  : Colors.grey,),
                     ),
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(20.r),
-                      borderSide: BorderSide(color: Colors.grey),
+                      borderSide: BorderSide(color: Theme.of(context).brightness == Brightness.light
+                  ? Color(0xFF121011)
+                  : Colors.grey,),
                     ),
                   ),
                 ),
@@ -172,12 +209,16 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10),
                     ),
-                    foregroundColor: Colors.white,
+                    foregroundColor: Theme.of(context).brightness == Brightness.light
+                  ? Color(0xFF121011)
+                  : Colors.white,
                     minimumSize: const Size(double.infinity, 55),
                   ),
                   child:
                       isLoading
-                          ? const CircularProgressIndicator(color: Colors.white)
+                          ? CircularProgressIndicator(color: Theme.of(context).brightness == Brightness.light
+                  ? Color(0xFF121011)
+                  : Colors.white,)
                           : const Text("Sign In"),
                 ),
 
@@ -186,21 +227,27 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       textAlign: TextAlign.center,
                       text: TextSpan(
                         text:
-                            'By clicking Create Account, you acknowledge you have read and agreed to our ',
+                            'create_account_note'.tr(),
                         style: TextStyle(
-                          color: Colors.grey.shade700,
+                          color: Theme.of(context).brightness == Brightness.light
+                  ? Color(0xFF121011)
+                  : Colors.grey.shade700,
                           fontWeight: FontWeight.w300,
                           fontSize: 14.5.sp,
                         ),
                         children: [
                           TextSpan(
-                            text: 'Terms of Use',
-                            style: TextStyle(color: Colors.grey),
+                            text: 'terms_of_use'.tr(),
+                            style: TextStyle(color: Theme.of(context).brightness == Brightness.light
+                  ? Color(0xFF121011)
+                  : Colors.grey,),
                           ),
-                          TextSpan(text: ' and '),
+                          TextSpan(text: 'and'.tr()),
                           TextSpan(
-                            text: 'Privacy Policy',
-                            style: TextStyle(color: Colors.grey),
+                            text: 'privacy_policy'.tr(),
+                            style: TextStyle(color: Theme.of(context).brightness == Brightness.light
+                  ? Color(0xFF121011)
+                  : Colors.grey,),
                           ),
                         ],
                       ),
@@ -211,7 +258,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   spacing: 10,
                   children: [
                     Expanded(child: Divider()),
-                    Text(" OR", style: TextStyle(color: Colors.grey)),
+                    Text('or'.tr(), style: TextStyle(color: Theme.of(context).brightness == Brightness.light
+                  ? Color(0xFF121011)
+                  : Colors.grey,)),
                     Expanded(child: Divider()),
                   ],
                 ),
@@ -222,7 +271,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     ElevatedButton(
                       style: ElevatedButton.styleFrom(
                         minimumSize: Size(100, 50),
-                        backgroundColor: Color(0xFF1E1E1E),
+                        backgroundColor: Theme.of(context).brightness == Brightness.dark
+                  ? Color(0xFF121011)
+                  : Colors.white,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10.r),
                         ),
@@ -235,7 +286,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       style: ElevatedButton.styleFrom(
                         minimumSize: Size(100, 50),
 
-                        backgroundColor: Color(0xFF1E1E1E),
+                        backgroundColor: Theme.of(context).brightness == Brightness.dark
+                  ? Color(0xFF121011)
+                  : Colors.white,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10.r),
                         ),
@@ -248,7 +301,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       style: ElevatedButton.styleFrom(
                         minimumSize: Size(100, 50),
 
-                        backgroundColor: Color(0xFF1E1E1E),
+                        backgroundColor: Theme.of(context).brightness == Brightness.dark
+                  ? Color(0xFF121011)
+                  : Colors.white,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10.r),
                         ),
@@ -264,8 +319,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      "Do have an account?",
-                      style: TextStyle(fontSize: 15.sp, color: Colors.grey),
+                      'have_account'.tr(),
+                      style: TextStyle(fontSize: 15.sp, color: Theme.of(context).brightness == Brightness.light
+                  ? Color(0xFF121011)
+                  : Colors.grey,),
                     ),
                     TextButton(
                       onPressed: () async {

@@ -4,11 +4,11 @@ class AppTheme {
   static ThemeData lightTheme = ThemeData(
     brightness: Brightness.light,
     fontFamily: "Roboto",
-    primaryColor: Colors.white
+    scaffoldBackgroundColor: Colors.white
   );
   static ThemeData darkTheme = ThemeData(
     brightness: Brightness.dark,
     fontFamily: "Roboto",
-    primaryColor: Colors.white
+    scaffoldBackgroundColor: Colors.black
   );
 }

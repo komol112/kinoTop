@@ -1,7 +1,7 @@
 import 'dart:developer';
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:kino_top/view/screens/detail_screen.dart';
 import 'package:kino_top/view/utils/widgets.dart';
 import 'package:kino_top/view_model/movie_provider.dart';
 import 'package:provider/provider.dart';
@@ -43,7 +43,7 @@ class _AllMoviesScreenState extends State<AllMoviesScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("All Movies")),
+      appBar: AppBar(title: Text('all_movies'.tr())),
       body: getAllMoviesScrolWidget(scrollController: _scrollController),
     );
   }

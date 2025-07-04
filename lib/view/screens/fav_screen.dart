@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:kino_top/models/movie_model.dart';
 import 'package:kino_top/view/screens/detail_screen.dart';
@@ -11,10 +12,24 @@ class FavScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor:
+          Theme.of(context).brightness == Brightness.dark
+              ? Color(0xFF121011)
+              : Colors.white,
       appBar: AppBar(
-        title: Text("Liked Movies", style: TextStyle(color: Colors.white)),
-        backgroundColor: Colors.black,
+        title: Text(
+          'liked_movies'.tr(),
+          style: TextStyle(
+            color:
+                Theme.of(context).brightness == Brightness.dark
+                    ? Colors.white
+                    : Color(0xFF121011),
+          ),
+        ),
+        backgroundColor:
+            Theme.of(context).brightness == Brightness.dark
+                ? Color(0xFF121011)
+                : Colors.white,
       ),
       body: StreamBuilder<QuerySnapshot>(
         stream: FirebaseFirestore.instance.collection('movies').snapshots(),
@@ -26,10 +41,15 @@ class FavScreen extends StatelessWidget {
           final docs = snapshot.data!.docs;
 
           if (docs.isEmpty) {
-            return const Center(
+            return Center(
               child: Text(
-                "Siz Kinolarga Like bosmagansiz",
-                style: TextStyle(color: Colors.white),
+                'no_liked_movies'.tr(),
+                style: TextStyle(
+                  color:
+                      Theme.of(context).brightness == Brightness.dark
+                          ? Colors.white
+                          : Color(0xFF121011),
+                ),
               ),
             );
           }
@@ -71,10 +91,23 @@ class FavScreen extends StatelessWidget {
                   width: 50,
                   fit: BoxFit.cover,
                 ),
-                title: Text(title, style: TextStyle(color: Colors.white)),
+                title: Text(
+                  title,
+                  style: TextStyle(
+                    color:
+                        Theme.of(context).brightness == Brightness.dark
+                            ? Colors.white
+                            : Color(0xFF121011),
+                  ),
+                ),
                 subtitle: Text(
                   overview,
-                  style: TextStyle(color: Colors.white70),
+                  style: TextStyle(
+                    color:
+                        Theme.of(context).brightness == Brightness.dark
+                            ? Colors.white
+                            : Color(0xFF121011),
+                  ),
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
                 ),
