@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:kino_top/screens/fav_screen.dart';
 import 'package:kino_top/screens/home_screen.dart';
+import 'package:kino_top/screens/myCard_screen.dart';
 
 class NavigationScreen extends StatefulWidget {
   const NavigationScreen({super.key});
@@ -27,18 +27,7 @@ class _NavigationScreenState extends State<NavigationScreen> {
       ),
     ),
 
-    Center(
-      child: Text(
-        "🎫 My Card",
-        style: TextStyle(
-          color:
-              Theme.of(context).brightness == Brightness.dark
-                  ? Colors.white
-                  : Colors.grey.shade900,
-          fontSize: 32,
-        ),
-      ),
-    ),
+   MyCardScreen(),
     Center(
       child: Text(
         "⚙️ Settings",
