@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:kino_top/screens/myCard_screen.dart';
-import 'package:kino_top/view/screens/fav_screen.dart';
 import 'package:kino_top/view/screens/home_screen.dart';
 
 class NavigationScreen extends StatefulWidget {
@@ -15,9 +13,31 @@ class _NavigationScreenState extends State<NavigationScreen> {
 
   List<Widget> get screens => [
     HomeScreen(),
-    FavScreen(),
+    Center(
+      child: Text(
+        "📺 Shorts",
+        style: TextStyle(
+          color:
+              Theme.of(context).brightness == Brightness.dark
+                  ? Colors.white
+                  : Colors.grey.shade900,
+          fontSize: 32,
+        ),
+      ),
+    ),
 
-    MyCardScreen(),
+    Center(
+      child: Text(
+        "🎫 My Card",
+        style: TextStyle(
+          color:
+              Theme.of(context).brightness == Brightness.dark
+                  ? Colors.white
+                  : Colors.grey.shade900,
+          fontSize: 32,
+        ),
+      ),
+    ),
     Center(
       child: Text(
         "⚙️ Settings",
@@ -32,12 +52,12 @@ class _NavigationScreenState extends State<NavigationScreen> {
     ),
   ];
 
-  final List<String> labels = ["Movies", "Liked", "My Movies", "Settings"];
+  final List<String> labels = ["Movies", "Liked Movies", "My Card", "Settings"];
   final List<IconData> icons = [
     Icons.movie_creation_rounded,
     Icons.favorite_border_outlined,
     // Icons.favorite,
-    Icons.video_collection_outlined,
+    Icons.local_activity_outlined,
     Icons.more_horiz,
   ];
 
