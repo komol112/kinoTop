@@ -2,8 +2,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:kino_top/screens/navigation_screen.dart';
-import 'package:kino_top/screens/onoarding_screen.dart';
+import 'package:kino_top/view/screens/navigation_screen.dart';
+import 'package:kino_top/view/screens/onoarding_screen.dart';
 
 class InitialScreen extends StatefulWidget {
   const InitialScreen({super.key});
@@ -17,8 +17,10 @@ class _InitialScreenState extends State<InitialScreen> {
   void initState() {
     super.initState();
 
-    Future.delayed(Duration(seconds: 5)).then(
-      (value) => Navigator.pushReplacement(
+    Future.delayed(Duration(seconds: 5)).then((_) {
+      if (!mounted) return; 
+
+      Navigator.pushReplacement(
         context,
         MaterialPageRoute(
           builder:
@@ -33,8 +35,8 @@ class _InitialScreenState extends State<InitialScreen> {
                 },
               ),
         ),
-      ),
-    );
+      );
+    });
   }
 
   @override

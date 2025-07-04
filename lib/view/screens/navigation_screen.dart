@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:kino_top/screens/fav_screen.dart';
-import 'package:kino_top/screens/home_screen.dart';
+import 'package:kino_top/view/screens/fav_screen.dart';
+import 'package:kino_top/view/screens/home_screen.dart';
 
 class NavigationScreen extends StatefulWidget {
   const NavigationScreen({super.key});
@@ -14,18 +14,7 @@ class _NavigationScreenState extends State<NavigationScreen> {
 
   List<Widget> get screens => [
     HomeScreen(),
-    Center(
-      child: Text(
-        "📺 Shorts",
-        style: TextStyle(
-          color:
-              Theme.of(context).brightness == Brightness.dark
-                  ? Colors.white
-                  : Colors.grey.shade900,
-          fontSize: 32,
-        ),
-      ),
-    ),
+    FavScreen(),
 
     Center(
       child: Text(
@@ -53,12 +42,12 @@ class _NavigationScreenState extends State<NavigationScreen> {
     ),
   ];
 
-  final List<String> labels = ["Movies", "Liked Movies", "My Card", "Settings"];
+  final List<String> labels = ["Movies", "Liked", "My Movies", "Settings"];
   final List<IconData> icons = [
     Icons.movie_creation_rounded,
     Icons.favorite_border_outlined,
     // Icons.favorite,
-    Icons.local_activity_outlined,
+    Icons.video_collection_outlined,
     Icons.more_horiz,
   ];
 
@@ -109,7 +98,11 @@ class _NavigationScreenState extends State<NavigationScreen> {
                     color:
                         isSelected
                             ? Colors.red
-                            : Color.lerp(const Color(0xFF1F1F1F), const Color(0xFF333333), 3),
+                            : Color.lerp(
+                              const Color(0xFF1F1F1F),
+                              const Color(0xFF333333),
+                              3,
+                            ),
                     borderRadius: BorderRadius.circular(100),
                   ),
                   child:
@@ -118,16 +111,13 @@ class _NavigationScreenState extends State<NavigationScreen> {
                             children: [
                               Icon(
                                 icons[index],
-                                color:
-                                    Colors.grey.shade200,
+                                color: Colors.grey.shade200,
                                 size: 30,
                               ),
                               const SizedBox(width: 8),
                               Text(
                                 labels[index],
-                                style: TextStyle(
-                                  color: Colors.grey.shade200,
-                                ),
+                                style: TextStyle(color: Colors.grey.shade200),
                               ),
                             ],
                           )

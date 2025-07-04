@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kino_top/models/movie_model.dart';
 import 'package:kino_top/repasitories/services/movie_service.dart';
-import 'package:kino_top/screens/detail_screen.dart';
+import 'package:kino_top/view/screens/detail_screen.dart';
 
 class MovieSearchDelegate extends SearchDelegate {
   MovieSearchDelegate();
@@ -87,7 +87,7 @@ class MovieSearchDelegate extends SearchDelegate {
       return const Center(child: Text('Type something to search...'));
     }
 
-    return FutureBuilder<MovieModel>(
+    return FutureBuilder<MovieModel?>(
       future: MovieService.searchMovie(movieName: query),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
@@ -115,7 +115,12 @@ class MovieSearchDelegate extends SearchDelegate {
 
             return GestureDetector(
               onTap: () {
-                DetailScreen(movie: result);
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => DetailScreen(movie: result),
+                  ),
+                );
               },
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -163,7 +168,7 @@ class MovieSearchDelegate extends SearchDelegate {
       return const Center(child: Text('Please enter a movie name'));
     }
 
-    return FutureBuilder<MovieModel>(
+    return FutureBuilder<MovieModel?>(
       future: MovieService.searchMovie(movieName: query),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {

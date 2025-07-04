@@ -8,14 +8,14 @@ import 'package:kino_top/models/movie_model.dart';
 
 class DetailScreen extends StatefulWidget {
   Results movie;
-  DetailScreen({super.key, required this.movie});
+  bool? isLike;
+  DetailScreen({super.key, this.isLike, required this.movie});
 
   @override
   State<DetailScreen> createState() => _DetailScreenState();
 }
 
 class _DetailScreenState extends State<DetailScreen> {
-  bool isLike = false;
   final userId = FirebaseAuth.instance.currentUser?.uid;
 
   @override
@@ -32,7 +32,7 @@ class _DetailScreenState extends State<DetailScreen> {
 
     if (doc.exists) {
       setState(() {
-        isLike = doc.data()?[widget.movie.id.toString()] ?? false;
+        widget.isLike = doc.data()?[widget.movie.id.toString()] ?? false;
       });
     }
   }
@@ -41,17 +41,17 @@ class _DetailScreenState extends State<DetailScreen> {
     if (userId == null) return;
 
     setState(() {
-      isLike = !isLike;
+      widget.isLike = !widget.isLike!;
     });
 
     final likesRef = FirebaseFirestore.instance.collection('likes').doc(userId);
     final moviesRef = FirebaseFirestore.instance.collection('movies');
 
     await likesRef.set({
-      widget.movie.id.toString(): isLike,
+      widget.movie.id.toString(): widget.isLike,
     }, SetOptions(merge: true));
 
-    if (isLike) {
+    if (widget.isLike != null && widget.isLike == true) {
       await moviesRef.doc(widget.movie.id.toString()).set({
         'id': widget.movie.id,
         'title': widget.movie.title,
@@ -63,12 +63,15 @@ class _DetailScreenState extends State<DetailScreen> {
         'originalLanguage': widget.movie.originalLanguage,
       });
     } else {
+      widget.isLike = false;
       await moviesRef.doc(widget.movie.id.toString()).delete();
     }
   }
 
   @override
   Widget build(BuildContext context) {
+    widget.isLike = false;
+
     return Scaffold(
       backgroundColor:
           Theme.of(context).brightness == Brightness.dark
@@ -76,18 +79,13 @@ class _DetailScreenState extends State<DetailScreen> {
               : Colors.white,
       body: Stack(
         children: [
-          Hero(
-            tag: ValueKey(
-              "https://image.tmdb.org/t/p/w500${widget.movie.posterPath}",
-            ),
-            child: ClipRRect(
-              borderRadius: BorderRadius.vertical(bottom: Radius.circular(40)),
-              child: Image.network(
-                height: 450,
-                width: double.infinity,
-                fit: BoxFit.cover,
-                'https://image.tmdb.org/t/p/w500${widget.movie.posterPath}',
-              ),
+          ClipRRect(
+            borderRadius: BorderRadius.vertical(bottom: Radius.circular(40)),
+            child: Image.network(
+              height: 450,
+              width: double.infinity,
+              fit: BoxFit.cover,
+              'https://image.tmdb.org/t/p/w500${widget.movie.posterPath}',
             ),
           ),
 
@@ -133,7 +131,6 @@ class _DetailScreenState extends State<DetailScreen> {
                   ),
                 ),
               ],
-
             ),
           ),
           Padding(
@@ -149,7 +146,7 @@ class _DetailScreenState extends State<DetailScreen> {
                     color:
                         Theme.of(context).brightness == Brightness.dark
                             ? Colors.grey.shade900
-                            : Colors.grey.shade200
+                            : Colors.grey.shade200,
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -328,15 +325,15 @@ class _DetailScreenState extends State<DetailScreen> {
                                   toggleLike();
                                 },
                                 icon: Icon(
-                                  isLike
+                                  widget.isLike!
                                       ? Icons.favorite
                                       : Icons.favorite_border,
-                                  color: isLike ? Colors.red : Colors.grey,
+                                  color:
+                                      widget.isLike! ? Colors.red : Colors.grey,
                                 ),
                               ),
                               SizedBox(width: 20.w),
                             ],
-
                           ),
                           Text(
                             widget.movie.originalLanguage.toString(),
@@ -378,6 +375,7 @@ class _DetailScreenState extends State<DetailScreen> {
                       ),
                     ],
                   ),
+                  // bool isLike = false;
                 ),
 
                 SafeArea(
