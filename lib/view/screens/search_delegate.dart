@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:kino_top/models/movie_model.dart';
 import 'package:kino_top/repasitories/services/movie_service.dart';
@@ -7,19 +8,16 @@ class MovieSearchDelegate extends SearchDelegate {
   MovieSearchDelegate();
 
   @override
-  String get searchFieldLabel => 'Search movies...';
+  String get searchFieldLabel => 'search_movies'.tr();
 
-  @override
-  TextStyle? get searchFieldStyle => const TextStyle(color: Colors.white);
+  // @override
+  // TextStyle? get searchFieldStyle =>  TextStyle(color: Colors.white);
 
   @override
   ThemeData appBarTheme(BuildContext context) {
     final theme = Theme.of(context);
     return theme.copyWith(
-      scaffoldBackgroundColor:
-          Theme.of(context).brightness == Brightness.dark
-              ? Color(0xFF121011)
-              : Colors.white,
+     
       appBarTheme: AppBarTheme(
         backgroundColor:
             Theme.of(context).brightness == Brightness.dark
@@ -33,7 +31,7 @@ class MovieSearchDelegate extends SearchDelegate {
                   : Colors.white,
         ),
       ),
-      inputDecorationTheme: InputDecorationTheme(
+      inputDecorationTheme: InputDecorationTheme(border: InputBorder.none,focusedBorder: InputBorder.none,
         hintStyle: TextStyle(
           color:
               Theme.of(context).brightness == Brightness.light
@@ -41,22 +39,11 @@ class MovieSearchDelegate extends SearchDelegate {
                   : Colors.white,
         ),
       ),
-      textTheme: TextTheme(
-        titleMedium: TextStyle(
-          color:
-              Theme.of(context).brightness == Brightness.light
-                  ? Color(0xFF121011)
-                  : Colors.white,
-        ),
-        bodyMedium: TextStyle(
-          color:
-              Theme.of(context).brightness == Brightness.light
-                  ? Color(0xFF121011)
-                  : Colors.white,
-        ),
-      ),
+      
+      
     );
   }
+
 
   @override
   List<Widget> buildActions(BuildContext context) {
@@ -84,7 +71,7 @@ class MovieSearchDelegate extends SearchDelegate {
   @override
   Widget buildSuggestions(BuildContext context) {
     if (query.isEmpty) {
-      return const Center(child: Text('Type something to search...'));
+      return  Center(child: Text('type_something'.tr()));
     }
 
     return FutureBuilder<MovieModel?>(
@@ -101,7 +88,7 @@ class MovieSearchDelegate extends SearchDelegate {
         final movie = snapshot.data;
 
         if (movie == null || movie.results == null || movie.results!.isEmpty) {
-          return const Center(child: Text('No results found.'));
+          return  Center(child: Text('no_results'.tr()));
         }
 
         return GridView.count(
@@ -141,7 +128,7 @@ class MovieSearchDelegate extends SearchDelegate {
                   ),
 
                   Text(
-                    result.title ?? "No title",
+                    result.title ?? 'no_title'.tr(),
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(
@@ -165,7 +152,7 @@ class MovieSearchDelegate extends SearchDelegate {
   @override
   Widget buildResults(BuildContext context) {
     if (query.isEmpty) {
-      return const Center(child: Text('Please enter a movie name'));
+      return  Center(child: Text('enter_movie_name'.tr()));
     }
 
     return FutureBuilder<MovieModel?>(
@@ -181,7 +168,7 @@ class MovieSearchDelegate extends SearchDelegate {
 
         final results = snapshot.data?.results;
         if (results == null || results.isEmpty) {
-          return const Center(child: Text('No results found.'));
+          return  Center(child: Text('no_results'.tr()));
         }
 
         return GridView.count(
@@ -223,7 +210,7 @@ class MovieSearchDelegate extends SearchDelegate {
                   ),
                   const SizedBox(height: 6),
                   Text(
-                    result.title ?? result.title ?? "No title",
+                    result.title ?? result.title ?? 'no_title',
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     style: const TextStyle(

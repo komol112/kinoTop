@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kino_top/view/screens/Login_screen.dart';
@@ -101,7 +102,10 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFf121011),
+      backgroundColor:
+          Theme.of(context).brightness == Brightness.dark
+              ? Color(0xFF121011)
+              : Colors.white,
       body: Column(
         spacing: 20,
         children: [
@@ -146,7 +150,10 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                       borderRadius: BorderRadius.circular(10.r),
                     ),
                     backgroundColor: Color(0xFfEB2F3D),
-                    foregroundColor: Colors.white,
+                    foregroundColor:
+                        Theme.of(context).brightness == Brightness.light
+                            ? Color(0xFF121011)
+                            : Colors.white,
                     minimumSize: Size(double.infinity, 60),
                   ),
                   onPressed: () {
@@ -164,7 +171,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                       );
                     }
                   },
-                  child: Text("Next"),
+                  child: Text('next'.tr()),
                 ),
 
                 Row(
@@ -207,8 +214,14 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
           width: 280.w,
           child: Text(
             textAlign: TextAlign.center,
-            "Tell us about your favorite movie genres",
-            style: TextStyle(color: Colors.white, fontSize: 20.sp),
+            'favorite_genres_prompt'.tr(),
+            style: TextStyle(
+              color:
+                  Theme.of(context).brightness == Brightness.light
+                      ? Color(0xFF121011)
+                      : Colors.white,
+              fontSize: 20.sp,
+            ),
           ),
         ),
         SizedBox(height: 30.h),
@@ -306,7 +319,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
           width: 280.w,
           child: Text(
             textAlign: TextAlign.center,
-            "Select thr genres you like to watch",
+            'select_genres'.tr(),
             style: TextStyle(color: Colors.white, fontSize: 20.sp),
           ),
         ),

@@ -1,6 +1,7 @@
 // ignore_for_file: must_be_immutable
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:kino_top/models/movie_model.dart';
@@ -238,7 +239,7 @@ class _DetailScreenState extends State<DetailScreen> {
                             child: Row(
                               children: [
                                 Text(
-                                  "Watch trailer",
+                                  'watch_trailer'.tr(),
                                   style: TextStyle(
                                     color:
                                         isDark
@@ -256,17 +257,119 @@ class _DetailScreenState extends State<DetailScreen> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          buildInfoColumn(
-                            "Censor Rating",
-                            Icons.star,
-                            widget.movie.voteAverage.toString(),
-                            isDark,
+
+                          Column(
+                            spacing: 8,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'censor_raiting',
+                                style: TextStyle(
+                                  color:
+                                      Theme.of(context).brightness ==
+                                              Brightness.dark
+                                          ? Colors.grey.shade200
+                                          : Colors.grey.shade900,
+                                ),
+                              ),
+                              Row(
+                                spacing: 5,
+                                children: [
+                                  Icon(Icons.star, color: Colors.amber),
+                                  Text(
+                                    widget.movie.voteAverage.toString(),
+                                    style: TextStyle(
+                                      color:
+                                          Theme.of(context).brightness ==
+                                                  Brightness.dark
+                                              ? Colors.grey.shade200
+                                              : Colors.grey.shade900,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
                           ),
-                          buildInfoColumn(
-                            "Popularity",
-                            null,
-                            widget.movie.popularity.toString(),
-                            isDark,
+                          Column(
+                            spacing: 8,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'popularity'.tr(),
+                                style: TextStyle(
+                                  color:
+                                      Theme.of(context).brightness ==
+                                              Brightness.dark
+                                          ? Colors.grey.shade200
+                                          : Colors.grey.shade900,
+                                ),
+                              ),
+                              Text(
+                                widget.movie.popularity.toString(),
+                                style: TextStyle(
+                                  color:
+                                      Theme.of(context).brightness ==
+                                              Brightness.dark
+                                          ? Colors.grey.shade200
+                                          : Colors.grey.shade900,
+                                ),
+                              ),
+                            ],
+                          ),
+                          Column(
+                            spacing: 8,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'relase_date'.tr(),
+                                style: TextStyle(
+                                  color:
+                                      Theme.of(context).brightness ==
+                                              Brightness.dark
+                                          ? Colors.grey.shade200
+                                          : Colors.grey.shade900,
+                                ),
+                              ),
+                              Text(
+                                widget.movie.releaseDate.toString(),
+                                style: TextStyle(
+                                  color:
+                                      Theme.of(context).brightness ==
+                                              Brightness.dark
+                                          ? Colors.grey.shade200
+                                          : Colors.grey.shade900,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                      Column(
+                        spacing: 8,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            children: [
+                              Text(
+                                'available_languages'.tr(),
+                                style: TextStyle(color: Colors.grey.shade200),
+                              ),
+                              Spacer(),
+                              IconButton(
+                                onPressed: () {
+                                  toggleLike();
+                                },
+                                icon: Icon(
+                                  widget.isLike!
+                                      ? Icons.favorite
+                                      : Icons.favorite_border,
+                                  color:
+                                      widget.isLike! ? Colors.red : Colors.grey,
+                                ),
+                              ),
+                              SizedBox(width: 20.w),
+                            ],
+
                           ),
                           buildInfoColumn(
                             "Release Date",
@@ -280,8 +383,18 @@ class _DetailScreenState extends State<DetailScreen> {
                       Row(
                         children: [
                           Text(
-                            "Available in Language's",
-                            style: TextStyle(color: Colors.grey.shade200),
+
+                            'story_plot',
+                            style: TextStyle(
+                              color:
+                                  Theme.of(context).brightness ==
+                                          Brightness.dark
+                                      ? Colors.grey.shade200
+                                      : Colors.grey.shade900,
+                              fontSize: 16,
+                              fontWeight: FontWeight.w500,
+                            ),
+
                           ),
                           Spacer(),
                           IconButton(
@@ -351,7 +464,7 @@ class _DetailScreenState extends State<DetailScreen> {
                         minimumSize: Size(double.infinity, 60),
                       ),
                       onPressed: () {},
-                      child: Text("Book Tickets"),
+                      child: Text('book_tickets'),
                     ),
                   ),
                 ),

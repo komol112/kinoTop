@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -56,12 +57,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
       builder:
           (context) => AlertDialog(
             backgroundColor: Colors.grey[900],
-            title: Text("Edit Name", style: TextStyle(color: Colors.white)),
+            title: Text('edit_name'.tr(), style: TextStyle(color: Colors.white)),
             content: TextField(
               controller: _nameController,
               style: TextStyle(color: Colors.white),
               decoration: InputDecoration(
-                hintText: "Enter new name",
+                hintText: 'enter_new_name'.tr(),
                 hintStyle: TextStyle(color: Colors.white54),
                 enabledBorder: UnderlineInputBorder(
                   borderSide: BorderSide(color: Colors.white),
@@ -71,7 +72,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             actions: [
               TextButton(
                 onPressed: () => Navigator.pop(context),
-                child: Text("Cancel", style: TextStyle(color: Colors.white)),
+                child: Text('cancel'.tr(), style: TextStyle(color: Colors.white)),
               ),
               TextButton(
                 onPressed: () async {
@@ -85,7 +86,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   await _saveUserName(newName);
                   Navigator.pop(context);
                 },
-                child: Text("Save", style: TextStyle(color: Colors.red)),
+                child: Text('save'.tr(), style: TextStyle(color: Colors.red)),
               ),
             ],
           ),
@@ -105,21 +106,36 @@ class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor:
+          Theme.of(context).brightness == Brightness.dark
+              ? Color(0xFF121011)
+              : Colors.white,
       appBar: AppBar(
-        backgroundColor: Colors.black,
+        backgroundColor:
+            Theme.of(context).brightness == Brightness.dark
+                ? Color(0xFF121011)
+                : Colors.white,
         title: Text(
-          "Profile",
+          'profile',
           style: TextStyle(
             fontSize: 25.sp,
-            color: Colors.white,
+            color:
+                Theme.of(context).brightness == Brightness.light
+                    ? Color(0xFF121011)
+                    : Colors.white,
             fontWeight: FontWeight.bold,
           ),
         ),
         actions: [
           IconButton(
             onPressed: _logout,
-            icon: Icon(Icons.logout, color: Colors.white),
+            icon: Icon(
+              Icons.logout,
+              color:
+                  Theme.of(context).brightness == Brightness.light
+                      ? Color(0xFF121011)
+                      : Colors.white,
+            ),
           ),
         ],
       ),
@@ -136,21 +152,37 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       backgroundColor: Colors.white70,
                     ),
                     onPressed: () {},
-                    icon: Icon(Icons.person, color: Colors.white, size: 120.r),
+                    icon: Icon(
+                      Icons.person,
+                      color:
+                          Theme.of(context).brightness == Brightness.light
+                              ? Color(0xFF121011)
+                              : Colors.white,
+                      size: 120.r,
+                    ),
                   ),
                   SizedBox(height: 20.h),
                   Row(
                     children: [
                       Text(
                         name,
-                        style: TextStyle(fontSize: 25.sp, color: Colors.white),
+                        style: TextStyle(
+                          fontSize: 25.sp,
+                          color:
+                              Theme.of(context).brightness == Brightness.light
+                                  ? Color(0xFF121011)
+                                  : Colors.white,
+                        ),
                       ),
                       SizedBox(width: 10.w),
                       IconButton(
                         onPressed: _editNameDialog,
                         icon: Icon(
                           Icons.edit,
-                          color: Colors.white,
+                          color:
+                              Theme.of(context).brightness == Brightness.light
+                                  ? Color(0xFF121011)
+                                  : Colors.white,
                           size: 25.sp,
                         ),
                       ),
@@ -159,7 +191,33 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   SizedBox(height: 20.h),
                   Text(
                     email,
-                    style: TextStyle(fontSize: 18.sp, color: Colors.white70),
+                    style: TextStyle(
+                      fontSize: 18.sp,
+                      color:
+                          Theme.of(context).brightness == Brightness.light
+                              ? Color(0xFF121011)
+                              : Colors.white,
+                    ),
+                  ),
+                  DropdownButton<Locale>(
+                    value: context.locale,
+                    onChanged: (newLocale) {
+                      if (newLocale != null) context.setLocale(newLocale);
+                    },
+                    items: const [
+                      DropdownMenuItem(
+                        value: Locale('en'),
+                        child: Text('English'),
+                      ),
+                      DropdownMenuItem(
+                        value: Locale('ru'),
+                        child: Text('Русский'),
+                      ),
+                      DropdownMenuItem(
+                        value: Locale('uz'),
+                        child: Text('Ozbekcha'),
+                      ),
+                    ],
                   ),
                 ],
               ),
