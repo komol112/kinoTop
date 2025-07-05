@@ -137,10 +137,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
           ),
 
           Padding(
-            padding: const EdgeInsets.all(25),
+            padding: const EdgeInsets.symmetric(horizontal: 25),
             child: Column(
-              spacing: 18,
-
+              // spacing: 18,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 ElevatedButton(
@@ -174,22 +173,24 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   child: Text('next'.tr()),
                 ),
 
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  spacing: 5,
-                  children: List.generate(2, (index) {
-                    return Container(
-                      width: 50.w,
-                      height: 5.h,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10.r),
-                        color:
-                            selctedpage == index
-                                ? Colors.red
-                                : const Color.fromARGB(255, 32, 31, 31),
-                      ),
-                    );
-                  }),
+                SafeArea(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    spacing: 5,
+                    children: List.generate(2, (index) {
+                      return Container(
+                        width: 50.w,
+                        height: 5.h,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10.r),
+                          color:
+                              selctedpage == index
+                                  ? Colors.red
+                                  : const Color.fromARGB(255, 32, 31, 31),
+                        ),
+                      );
+                    }),
+                  ),
                 ),
               ],
             ),
@@ -203,11 +204,11 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     return Column(
       spacing: 10,
       children: [
-        SizedBox(height: 50.h),
+        SizedBox(height: 30.h),
 
         buildImageGridRow(images1, _scrollController1),
         buildImageGridRow(images2, _scrollController2),
-        SizedBox(height: 50),
+        // SizedBox(height: 50),
         Spacer(),
 
         SizedBox(
@@ -220,11 +221,10 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   Theme.of(context).brightness == Brightness.light
                       ? Color(0xFF121011)
                       : Colors.white,
-              fontSize: 20.sp,
+              fontSize: 23.sp,
             ),
           ),
         ),
-        SizedBox(height: 30.h),
       ],
     );
   }
@@ -331,7 +331,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
 
   Widget buildImageGridRow(List<String> images, ScrollController controller) {
     return SizedBox(
-      height: 200,
+      height: 195,
       child: GridView.builder(
         controller: controller,
         scrollDirection: Axis.horizontal,

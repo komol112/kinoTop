@@ -50,7 +50,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 Theme.of(context).brightness == Brightness.dark
                     ? Color(0xFF121011)
                     : Colors.white,
-            leading: Text('hey_user'.tr()),
+            leading: Text("hey_user".tr()),
             actions: [
               searchDelegateWidget(context),
               SizedBox(width: 10.w),

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:kino_top/screens/myCard_screen.dart';
+import 'package:kino_top/view/screens/myCard_screen.dart';
 import 'package:kino_top/view/screens/fav_screen.dart';
 import 'package:kino_top/view/screens/home_screen.dart';
+import 'package:kino_top/view/screens/profile_screen.dart';
 
 class NavigationScreen extends StatefulWidget {
   const NavigationScreen({super.key});
@@ -18,21 +19,10 @@ class _NavigationScreenState extends State<NavigationScreen> {
     FavScreen(),
 
     MyCardScreen(),
-    Center(
-      child: Text(
-        "⚙️ Settings",
-        style: TextStyle(
-          color:
-              Theme.of(context).brightness == Brightness.dark
-                  ? Colors.white
-                  : Colors.grey.shade900,
-          fontSize: 32,
-        ),
-      ),
-    ),
+    ProfileScreen(),
   ];
 
-  final List<String> labels = ["Movies", "Liked", "My Movies", "Settings"];
+  final List<String> labels = ["Movies", "Liked", "My Movies", "Profile"];
   final List<IconData> icons = [
     Icons.movie_creation_rounded,
     Icons.favorite_border_outlined,

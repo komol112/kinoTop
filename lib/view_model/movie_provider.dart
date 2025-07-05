@@ -115,7 +115,7 @@ class MovieProvider extends ChangeNotifier {
   int _currentPage = 3;
   bool hasMore = true;
 
-  List<Results> _movies = [];
+  final List<Results> _movies = [];
   List<Results> get movies => _movies;
 
   Future<void> getAllMovies() async {
@@ -128,7 +128,7 @@ class MovieProvider extends ChangeNotifier {
 
       final newMovies = movieModel?.results ?? [];
 
-      log("📦 Kelgan yangi film soni: ${newMovies.length}");
+      log("Kelgan film soni: ${newMovies.length}");
 
       if (_currentPage >= 500) {
         hasMore = false;
@@ -137,7 +137,7 @@ class MovieProvider extends ChangeNotifier {
         _currentPage++;
       }
     } catch (e) {
-      log("❌ Xatolik: $e");
+      log("Xato: $e");
     } finally {
       isLoading = false;
       notifyListeners();

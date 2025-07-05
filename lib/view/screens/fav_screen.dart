@@ -2,7 +2,9 @@ import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kino_top/models/movie_model.dart';
 import 'package:kino_top/view/screens/detail_screen.dart';
 
@@ -11,6 +13,7 @@ class FavScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final userId = FirebaseAuth.instance.currentUser?.uid;
     return Scaffold(
       backgroundColor:
           Theme.of(context).brightness == Brightness.dark
@@ -32,7 +35,14 @@ class FavScreen extends StatelessWidget {
                 : Colors.white,
       ),
       body: StreamBuilder<QuerySnapshot>(
-        stream: FirebaseFirestore.instance.collection('movies').snapshots(),
+        stream:
+            FirebaseFirestore.instance
+                .collection('movies')
+                .where(
+                  'userId',
+                  isEqualTo: userId,
+                ) // ✅ Faqat shu userning like'lari
+                .snapshots(),
         builder: (context, snapshot) {
           if (!snapshot.hasData) {
             return const Center(child: CircularProgressIndicator());
@@ -62,54 +72,57 @@ class FavScreen extends StatelessWidget {
               final posterPath = data['posterPath'] ?? '';
               final overview = data['overview'] ?? '';
 
-              return ListTile(
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder:
-                          (context) => DetailScreen(
-                            isLike: true,
-                            movie: Results(
-                              posterPath: data["posterPath"],
-                              title: data["title"],
-                              overview: data["overview"],
-                              originalTitle: data["originalTitle"],
-                              releaseDate: data["releaseDate"],
-                              voteAverage: data["voteAverage"],
-                              originalLanguage: data["originalLanguage"],
-                              backdropPath: data["backdropPath"],
-                              popularity: data["popularity"],
+              return SizedBox(
+                height: 80,
+                child: ListTile(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder:
+                            (context) => DetailScreen(
+                              movie: Results(
+                                posterPath: data["posterPath"],
+                                title: data["title"],
+                                overview: data["overview"],
+                                originalTitle: data["originalTitle"],
+                                releaseDate: data["releaseDate"],
+                                voteAverage: data["voteAverage"],
+                                originalLanguage: data["originalLanguage"],
+                                backdropPath: data["backdropPath"],
+                                popularity: data["popularity"],
+                              ),
                             ),
-                          ),
+                      ),
+                    );
+                    log("title : ${data["title"].toString()}");
+                  },
+                  leading: Image.network(
+                    'https://image.tmdb.org/t/p/w200$posterPath',
+                    fit: BoxFit.cover,
+                  ),
+                  title: Text(
+                    title,
+                    style: TextStyle(
+                      fontSize: 29.sp,
+                      fontWeight: FontWeight.w500,
+                      color:
+                          Theme.of(context).brightness == Brightness.dark
+                              ? Colors.white
+                              : Color(0xFF121011),
                     ),
-                  );
-                  log("title : ${data["title"].toString()}");
-                },
-                leading: Image.network(
-                  'https://image.tmdb.org/t/p/w200$posterPath',
-                  width: 50,
-                  fit: BoxFit.cover,
-                ),
-                title: Text(
-                  title,
-                  style: TextStyle(
-                    color:
-                        Theme.of(context).brightness == Brightness.dark
-                            ? Colors.white
-                            : Color(0xFF121011),
                   ),
-                ),
-                subtitle: Text(
-                  overview,
-                  style: TextStyle(
-                    color:
-                        Theme.of(context).brightness == Brightness.dark
-                            ? Colors.white
-                            : Color(0xFF121011),
+                  subtitle: Text(
+                    overview,
+                    style: TextStyle(
+                      color:
+                          Theme.of(context).brightness == Brightness.dark
+                              ? Colors.grey.shade400
+                              : Color(0xFF121011),
+                    ),
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
                   ),
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
                 ),
               );
             },

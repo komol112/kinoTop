@@ -1,3 +1,5 @@
+// ignore_for_file: non_constant_identifier_names, camel_case_types
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
@@ -306,7 +308,7 @@ class getAllMoviesScrolWidget extends StatelessWidget {
           itemCount: controller.movies.length + (controller.isLoading ? 2 : 0),
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 2,
-            childAspectRatio: 0.9,
+            childAspectRatio: 0.7,
             crossAxisSpacing: 10,
 
             mainAxisSpacing: 3,

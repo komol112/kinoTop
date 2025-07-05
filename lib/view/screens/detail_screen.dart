@@ -4,12 +4,13 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kino_top/models/movie_model.dart';
+import 'package:kino_top/view/screens/comments_screen.dart';
 
 class DetailScreen extends StatefulWidget {
   Results movie;
-  bool? isLike;
-  DetailScreen({super.key, this.isLike, required this.movie});
+  DetailScreen({super.key, required this.movie});
 
   @override
   State<DetailScreen> createState() => _DetailScreenState();
@@ -18,6 +19,7 @@ class DetailScreen extends StatefulWidget {
 class _DetailScreenState extends State<DetailScreen> {
   final userId = FirebaseAuth.instance.currentUser?.uid;
   String? selectedStatus;
+  bool isLiked = false;
 
   String get movieDocId => '${userId}_${widget.movie.id}';
 
@@ -29,13 +31,11 @@ class _DetailScreenState extends State<DetailScreen> {
   }
 
   Future<void> fetchLikeStatus() async {
-    if (userId == null) return;
-
     final doc =
         await FirebaseFirestore.instance.collection('likes').doc(userId).get();
     if (doc.exists) {
       setState(() {
-        widget.isLike = doc.data()?[widget.movie.id.toString()] ?? false;
+        isLiked = doc.data()?[widget.movie.id.toString()] ?? false;
       });
     }
   }
@@ -59,17 +59,18 @@ class _DetailScreenState extends State<DetailScreen> {
     if (userId == null) return;
 
     setState(() {
-      widget.isLike = !(widget.isLike ?? false);
+      isLiked = !isLiked;
     });
 
     final likesRef = FirebaseFirestore.instance.collection('likes').doc(userId);
     final moviesRef = FirebaseFirestore.instance.collection('movies');
 
-    await likesRef.set({
-      widget.movie.id.toString(): widget.isLike,
-    }, SetOptions(merge: true));
+    if (isLiked) {
+      // Yoqtirildi: likes va movies kolleksiyasiga qo‘shamiz
+      await likesRef.set({
+        widget.movie.id.toString(): true,
+      }, SetOptions(merge: true));
 
-    if (widget.isLike == true) {
       await moviesRef.doc(movieDocId).set({
         'id': widget.movie.id,
         'title': widget.movie.title,
@@ -83,6 +84,9 @@ class _DetailScreenState extends State<DetailScreen> {
         'status': selectedStatus,
       }, SetOptions(merge: true));
     } else {
+      // Yoqtirish olib tashlandi: likes'dan o‘chiramiz va movies'dan ham o‘chiramiz
+      await likesRef.update({widget.movie.id.toString(): FieldValue.delete()});
+
       await moviesRef.doc(movieDocId).delete();
     }
   }
@@ -129,18 +133,15 @@ class _DetailScreenState extends State<DetailScreen> {
       backgroundColor: isDark ? Color(0xFF121011) : Colors.white,
       body: Stack(
         children: [
-          Hero(
-            tag: "https://image.tmdb.org/t/p/w500${widget.movie.posterPath}",
-            child: ClipRRect(
-              borderRadius: BorderRadius.vertical(bottom: Radius.circular(40)),
-              child: Image.network(
-                'https://image.tmdb.org/t/p/w500${widget.movie.posterPath}',
-                height: 450,
-                width: double.infinity,
-                fit: BoxFit.cover,
-                errorBuilder:
-                    (context, error, stackTrace) => Icon(Icons.broken_image),
-              ),
+          ClipRRect(
+            borderRadius: BorderRadius.vertical(bottom: Radius.circular(40)),
+            child: Image.network(
+              'https://image.tmdb.org/t/p/w500${widget.movie.posterPath}',
+              height: 450,
+              width: double.infinity,
+              fit: BoxFit.cover,
+              errorBuilder:
+                  (context, error, stackTrace) => Icon(Icons.broken_image),
             ),
           ),
           SafeArea(
@@ -159,6 +160,10 @@ class _DetailScreenState extends State<DetailScreen> {
                 ),
                 Spacer(),
                 PopupMenuButton<String>(
+                  style: IconButton.styleFrom(
+                    backgroundColor:
+                        isDark ? Colors.grey.shade900 : Colors.grey.shade200,
+                  ),
                   icon: Icon(
                     Icons.more_vert,
                     color: isDark ? Colors.grey.shade200 : Colors.grey.shade900,
@@ -257,19 +262,24 @@ class _DetailScreenState extends State<DetailScreen> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-
                           Column(
                             spacing: 8,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(
-                                'censor_raiting',
-                                style: TextStyle(
-                                  color:
-                                      Theme.of(context).brightness ==
-                                              Brightness.dark
-                                          ? Colors.grey.shade200
-                                          : Colors.grey.shade900,
+                              SizedBox(
+                                width: 147.6.w,
+                                child: Text(
+                                  maxLines: 1,
+                                  'censor_raiting'.tr(),
+                                  style: TextStyle(
+                                    overflow: TextOverflow.ellipsis,
+
+                                    color:
+                                        Theme.of(context).brightness ==
+                                                Brightness.dark
+                                            ? Colors.grey.shade200
+                                            : Colors.grey.shade900,
+                                  ),
                                 ),
                               ),
                               Row(
@@ -277,7 +287,7 @@ class _DetailScreenState extends State<DetailScreen> {
                                 children: [
                                   Icon(Icons.star, color: Colors.amber),
                                   Text(
-                                    widget.movie.voteAverage.toString(),
+                                    "${widget.movie.voteAverage ?? "0"}",
                                     style: TextStyle(
                                       color:
                                           Theme.of(context).brightness ==
@@ -294,14 +304,19 @@ class _DetailScreenState extends State<DetailScreen> {
                             spacing: 8,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(
-                                'popularity'.tr(),
-                                style: TextStyle(
-                                  color:
-                                      Theme.of(context).brightness ==
-                                              Brightness.dark
-                                          ? Colors.grey.shade200
-                                          : Colors.grey.shade900,
+                              SizedBox(
+                                width: 105.w,
+                                child: Text(
+                                  maxLines: 1,
+                                  'popularity'.tr(),
+                                  style: TextStyle(
+                                    overflow: TextOverflow.ellipsis,
+                                    color:
+                                        Theme.of(context).brightness ==
+                                                Brightness.dark
+                                            ? Colors.grey.shade200
+                                            : Colors.grey.shade900,
+                                  ),
                                 ),
                               ),
                               Text(
@@ -320,14 +335,19 @@ class _DetailScreenState extends State<DetailScreen> {
                             spacing: 8,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(
-                                'relase_date'.tr(),
-                                style: TextStyle(
-                                  color:
-                                      Theme.of(context).brightness ==
-                                              Brightness.dark
-                                          ? Colors.grey.shade200
-                                          : Colors.grey.shade900,
+                              SizedBox(
+                                width: 117.w,
+                                child: Text(
+                                  maxLines: 1,
+                                  'relase_date'.tr(),
+                                  style: TextStyle(
+                                    overflow: TextOverflow.ellipsis,
+                                    color:
+                                        Theme.of(context).brightness ==
+                                                Brightness.dark
+                                            ? Colors.grey.shade200
+                                            : Colors.grey.shade900,
+                                  ),
                                 ),
                               ),
                               Text(
@@ -350,9 +370,20 @@ class _DetailScreenState extends State<DetailScreen> {
                         children: [
                           Row(
                             children: [
-                              Text(
-                                'available_languages'.tr(),
-                                style: TextStyle(color: Colors.grey.shade200),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    'awailable in languages :'.tr(),
+                                    style: TextStyle(
+                                      color: Colors.grey.shade200,
+                                    ),
+                                  ),
+                                  Text(
+                                    widget.movie.originalLanguage.toString(),
+                                    style: TextStyle(color: Colors.red),
+                                  ),
+                                ],
                               ),
                               Spacer(),
                               IconButton(
@@ -360,66 +391,46 @@ class _DetailScreenState extends State<DetailScreen> {
                                   toggleLike();
                                 },
                                 icon: Icon(
-                                  widget.isLike!
+                                  isLiked
                                       ? Icons.favorite
                                       : Icons.favorite_border,
-                                  color:
-                                      widget.isLike! ? Colors.red : Colors.grey,
+                                  color: isLiked ? Colors.red : Colors.grey,
                                 ),
                               ),
                               SizedBox(width: 20.w),
                             ],
-
-                          ),
-                          buildInfoColumn(
-                            "Release Date",
-                            null,
-                            widget.movie.releaseDate.toString(),
-                            isDark,
                           ),
                         ],
                       ),
-                      Divider(),
+
                       Row(
                         children: [
-                          Text(
-
-                            'story_plot',
-                            style: TextStyle(
-                              color:
-                                  Theme.of(context).brightness ==
-                                          Brightness.dark
-                                      ? Colors.grey.shade200
-                                      : Colors.grey.shade900,
-                              fontSize: 16,
-                              fontWeight: FontWeight.w500,
+                          if (selectedStatus != null)
+                            Text(
+                              "Status: ${statusLabel(selectedStatus!)}",
+                              style: TextStyle(color: Colors.blueGrey),
                             ),
-
-                          ),
                           Spacer(),
-                          IconButton(
-                            onPressed: toggleLike,
-                            icon: Icon(
-                              widget.isLike == true
-                                  ? Icons.favorite
-                                  : Icons.favorite_border,
-                              color:
-                                  widget.isLike == true
-                                      ? Colors.red
-                                      : Colors.grey,
+                          TextButton(
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder:
+                                      (_) => CommentsScreen(
+                                        movieId: widget.movie.id.toString(),
+                                      ),
+                                ),
+                              );
+                            },
+                            child: Text(
+                              "Comments",
+                              style: TextStyle(color: Colors.white),
                             ),
                           ),
                         ],
                       ),
-                      Text(
-                        widget.movie.originalLanguage.toString(),
-                        style: TextStyle(color: Colors.red),
-                      ),
-                      if (selectedStatus != null)
-                        Text(
-                          "Status: ${statusLabel(selectedStatus!)}",
-                          style: TextStyle(color: Colors.blueGrey),
-                        ),
+
                       Divider(),
                       Text(
                         "Story Plot",

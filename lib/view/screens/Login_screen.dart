@@ -171,8 +171,6 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       password: passwordController.text.trim(),
                     );
 
-                    await Future.delayed(const Duration(seconds: 2));
-
                     Navigator.push(
                       context,
                       MaterialPageRoute(
@@ -198,15 +196,19 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10.r),
                   ),
-                  foregroundColor: Theme.of(context).brightness == Brightness.light
-                  ? Color(0xFF121011)
-                  : Colors.white,
+                  foregroundColor:
+                      Theme.of(context).brightness == Brightness.light
+                          ? Color(0xFF121011)
+                          : Colors.white,
                 ),
                 child:
                     isLoading
-                        ?  CircularProgressIndicator(color: Theme.of(context).brightness == Brightness.light
-                  ? Color(0xFF121011)
-                  : Colors.white,)
+                        ? CircularProgressIndicator(
+                          color:
+                              Theme.of(context).brightness == Brightness.light
+                                  ? Color(0xFF121011)
+                                  : Colors.white,
+                        )
                         : const Text("Sign in"),
               ),
 
@@ -220,9 +222,12 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                   Expanded(child: Divider()),
                   Text(
                     'or'.tr(),
-                    style: TextStyle(color: Theme.of(context).brightness == Brightness.light
-                  ? Color(0xFF121011)
-                  : Colors.grey.shade300,),
+                    style: TextStyle(
+                      color:
+                          Theme.of(context).brightness == Brightness.light
+                              ? Color(0xFF121011)
+                              : Colors.grey.shade300,
+                    ),
                   ),
                   Expanded(child: Divider()),
                 ],
@@ -234,9 +239,10 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
                       minimumSize: Size(100, 50),
-                      backgroundColor: Theme.of(context).brightness == Brightness.dark
-                  ? Color(0xFF121011)
-                  : Colors.white,
+                      backgroundColor:
+                          Theme.of(context).brightness == Brightness.dark
+                              ? Color(0xFF1E1E1E)
+                              : Colors.white,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10),
                       ),
@@ -249,9 +255,10 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                     style: ElevatedButton.styleFrom(
                       minimumSize: Size(100, 50),
 
-                      backgroundColor: Theme.of(context).brightness == Brightness.dark
-                  ? Color(0xFF121011)
-                  : Colors.white,
+                      backgroundColor:
+                          Theme.of(context).brightness == Brightness.dark
+                              ? Color(0xFF1E1E1E)
+                              : Colors.white,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10),
                       ),
@@ -264,9 +271,10 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                     style: ElevatedButton.styleFrom(
                       minimumSize: Size(100, 50),
 
-                      backgroundColor: Theme.of(context).brightness == Brightness.dark
-                  ? Color(0xFF121011)
-                  : Colors.white,
+                      backgroundColor:
+                          Theme.of(context).brightness == Brightness.dark
+                              ? Color(0xFF1E1E1E)
+                              : Colors.white,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10),
                       ),
@@ -283,9 +291,13 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                 children: [
                   Text(
                     'have_account'.tr(),
-                    style: TextStyle(fontSize: 15.sp, color: Theme.of(context).brightness == Brightness.light
-                  ? Color(0xFF121011)
-                  : Colors.grey,),
+                    style: TextStyle(
+                      fontSize: 15.sp,
+                      color:
+                          Theme.of(context).brightness == Brightness.light
+                              ? Color(0xFF121011)
+                              : Colors.grey,
+                    ),
                   ),
                   TextButton(
                     onPressed: () async {

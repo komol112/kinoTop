@@ -18,10 +18,11 @@ class _MyCardScreenState extends State<MyCardScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("My Movies"),
-        backgroundColor: Colors.white70,
-      ),
+      backgroundColor:
+          Theme.of(context).brightness == Brightness.dark
+              ? Color(0xFF121011)
+              : Colors.white,
+      appBar: AppBar(title: Text("My Movies")),
       body: Column(
         children: [
           const SizedBox(height: 10),
@@ -108,15 +109,16 @@ class _MyCardScreenState extends State<MyCardScreen> {
       children:
           filters.map((filter) {
             final isSelected = selectedFilter == filter;
-            return ElevatedButton(
+            return TextButton(
               onPressed: () {
                 setState(() {
                   selectedFilter = filter;
                 });
               },
-              style: ElevatedButton.styleFrom(
-                backgroundColor: isSelected ? Colors.red : Colors.grey.shade300,
-                foregroundColor: isSelected ? Colors.white : Colors.black,
+              style: TextButton.styleFrom(
+                minimumSize: Size(0, 0),
+                backgroundColor: isSelected ? Colors.red : Colors.transparent,
+                foregroundColor: isSelected ? Colors.white : Colors.white,
               ),
               child: Text(filter[0].toUpperCase() + filter.substring(1)),
             );
